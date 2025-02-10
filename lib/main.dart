@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_pal/shared/custom_widget/custom_class_details.dart';
+import 'package:student_pal/shared/navigation/app_route_string.dart';
+import 'package:student_pal/shared/navigation/app_router.dart';
 import 'package:student_pal/shared/theme/theme.dart';
 
 void main() {
@@ -20,6 +22,9 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: AppTheme.lightMode,
       darkTheme: AppTheme.darkMode,
+      onGenerateRoute: AppRouter.appRouter,
+      initialRoute: AppRouteStrings.base,
+      navigatorKey: AppRouter.navKey,
     );
   }
 }

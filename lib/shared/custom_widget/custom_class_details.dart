@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomClassDetails extends StatefulWidget {
-  const CustomClassDetails({super.key,});
-
+  const CustomClassDetails({
+    super.key,
+  });
 
   @override
   State<CustomClassDetails> createState() => _CustomClassDetailsState();

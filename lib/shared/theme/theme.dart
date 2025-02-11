@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../app_colors.dart';
 
 class AppTheme {
@@ -11,16 +11,16 @@ class AppTheme {
     textTheme: TextTheme(
         displayLarge: TextStyle(
             color: AppColors.lightModeTextColor,
-            fontSize: 20,
+            fontSize: 20.spMin,
             fontFamily: "Inter",
             fontWeight: FontWeight.w700),
         bodySmall: TextStyle(
             color: AppColors.lightModeTextColor,
-            fontSize: 12,
+            fontSize: 12.spMin,
             fontWeight: FontWeight.w400),
         bodyMedium: TextStyle(
             color: AppColors.lightModeTextColor,
-            fontSize: 14,
+            fontSize: 14.spMin,
             fontWeight: FontWeight.w400)),
     bottomAppBarTheme:
         BottomAppBarTheme(color: AppColors.lightModeContainerColor),
@@ -29,7 +29,7 @@ class AppTheme {
         fillColor: AppColors.lightModeBackgroundColor,
         filled: true,
         hintStyle: TextStyle(
-            fontSize: 14,
+            fontSize: 14.spMin,
             fontFamily: "Inter",
             color: AppColors.otherLightModeTextColor,
             fontWeight: FontWeight.w400),
@@ -58,13 +58,13 @@ class AppTheme {
         selectedItemColor: AppColors.blueColor,
         selectedLabelStyle: TextStyle(
             color: AppColors.blueColor,
-            fontSize: 12,
+            fontSize: 12.spMin,
             fontFamily: "Inter",
             fontWeight: FontWeight.w400),
         unselectedItemColor: AppColors.otherLightModeTextColor,
         unselectedLabelStyle: TextStyle(
             color: AppColors.otherLightModeTextColor,
-            fontSize: 12,
+            fontSize: 12.spMin,
             fontFamily: "Inter",
             fontWeight: FontWeight.w400)),
   );
@@ -78,29 +78,29 @@ class AppTheme {
     textTheme: TextTheme(
         displayLarge: TextStyle(
             color: AppColors.darkModeheadingTextColor,
-            fontSize: 20,
+            fontSize: 20.spMin,
             fontFamily: "Inter",
             fontWeight: FontWeight.w700),
         bodySmall: TextStyle(
             color: AppColors.darkModeheadingTextColor,
-            fontSize: 12,
+            fontSize: 12.spMin,
             fontWeight: FontWeight.w400),
         bodyMedium: TextStyle(
             color: AppColors.darkModeheadingTextColor,
-            fontSize: 14,
+            fontSize: 14.spMin,
             fontWeight: FontWeight.w400)),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
         backgroundColor: AppColors.darkModeContainerColor,
         selectedItemColor: AppColors.blueColor,
         selectedLabelStyle: TextStyle(
             color: AppColors.blueColor,
-            fontSize: 12,
+            fontSize: 12.spMin,
             fontFamily: "Inter",
             fontWeight: FontWeight.w400),
         unselectedItemColor: AppColors.navbarTextColor,
         unselectedLabelStyle: TextStyle(
             color: AppColors.navbarTextColor,
-            fontSize: 12,
+            fontSize: 12.spMin,
             fontFamily: "Inter",
             fontWeight: FontWeight.w400)),
     bottomAppBarTheme:
@@ -111,7 +111,7 @@ class AppTheme {
         fillColor: AppColors.darkModeBackgroundColor,
         filled: true,
         hintStyle: TextStyle(
-            fontSize: 14,
+            fontSize: 14.spMin,
             fontFamily: "Inter",
             color: AppColors.lightModeContainerColor,
             fontWeight: FontWeight.w400),

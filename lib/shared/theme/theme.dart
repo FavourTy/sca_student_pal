@@ -66,6 +66,7 @@ class AppTheme {
             borderSide: BorderSide(color: AppColors.otherLightModeTextColor)),
         suffixIconColor: AppColors.otherLightModeTextColor),
     checkboxTheme: CheckboxThemeData(
+      checkColor: WidgetStatePropertyAll(AppColors.lightModeBackgroundColor),
       fillColor: WidgetStatePropertyAll(AppColors.lightModeBackgroundColor),
     ),
     dividerColor: AppColors.lightModeTextColor,
@@ -87,8 +88,25 @@ class AppTheme {
   );
 
   static final ThemeData darkMode = ThemeData(
+    tabBarTheme: TabBarTheme(
+      indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0),
+          color: AppColors.actionColor),
+      labelStyle: TextStyle(
+          fontSize: 14.spMin,
+          color: AppColors.lightModeTextColor,
+          fontFamily: "Inter",
+          fontWeight: FontWeight.w700),
+      unselectedLabelStyle: TextStyle(
+          fontSize: 14.spMin,
+          color: AppColors.darkModeheadingTextColor,
+          fontFamily: "Inter",
+          fontWeight: FontWeight.w700),
+    ),
     appBarTheme: AppBarTheme(
-        elevation: 0, backgroundColor: AppColors.darkModeContainerColor),
+        scrolledUnderElevation: 0,
+        elevation: 0,
+        backgroundColor: AppColors.darkModeContainerColor),
     brightness: Brightness.dark,
     useMaterial3: true,
     dividerColor: AppColors.lightModeContainerColor,
@@ -148,6 +166,7 @@ class AppTheme {
             borderSide: BorderSide(color: AppColors.lightModeContainerColor)),
         suffixIconColor: AppColors.otherLightModeTextColor),
     checkboxTheme: CheckboxThemeData(
+      checkColor: WidgetStatePropertyAll(AppColors.darkModeBackgroundColor),
       fillColor: WidgetStatePropertyAll(AppColors.darkModeBackgroundColor),
     ),
   );

@@ -5,8 +5,25 @@ import '../app_colors.dart';
 class AppTheme {
   static final ThemeData lightMode = ThemeData(
     brightness: Brightness.light,
+    tabBarTheme: TabBarTheme(
+      indicator: BoxDecoration(
+          borderRadius: BorderRadius.circular(25.0),
+          color: AppColors.actionColor),
+      labelStyle: TextStyle(
+          fontSize: 14.spMin,
+          color: AppColors.lightModeTextColor,
+          fontFamily: "Inter",
+          fontWeight: FontWeight.w700),
+      unselectedLabelStyle: TextStyle(
+          fontSize: 14.spMin,
+          color: AppColors.lightModeTextColor,
+          fontFamily: "Inter",
+          fontWeight: FontWeight.w700),
+    ),
     appBarTheme: AppBarTheme(
-        elevation: 0, backgroundColor: AppColors.lightModeContainerColor),
+        scrolledUnderElevation: 0,
+        elevation: 0,
+        backgroundColor: AppColors.lightModeContainerColor),
     useMaterial3: true,
     textTheme: TextTheme(
         displayLarge: TextStyle(

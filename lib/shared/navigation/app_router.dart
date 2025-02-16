@@ -3,6 +3,8 @@ import 'package:student_pal/features/assignments/views/assignment_screen.dart';
 import 'package:student_pal/features/bottom_nav/bottom_nav.dart';
 import 'package:student_pal/features/schedule/views/schedule_screen.dart';
 import 'package:student_pal/features/settings/views/settings_screen.dart';
+import 'package:student_pal/features/today/views/create_assignment_screen.dart';
+import 'package:student_pal/features/today/views/create_class.dart';
 import 'package:student_pal/features/today/views/today_screen.dart';
 
 import 'app_route_string.dart';
@@ -21,6 +23,11 @@ class AppRouter {
         return CupertinoPageRoute(builder: (_) => const TodayScreen());
       case AppRouteStrings.assignmentScreen:
         return CupertinoPageRoute(builder: (_) => const AssignmentScreen());
+      case AppRouteStrings.createAssignment:
+        return CupertinoPageRoute(
+            builder: (_) => const CreateAssignmentScreen());
+      case AppRouteStrings.createClass:
+        return CupertinoPageRoute(builder: (_) => const CreateClass());
       default:
         return CupertinoPageRoute(builder: (_) => const SizedBox());
     }

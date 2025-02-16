@@ -22,18 +22,21 @@ class AssignmentCard extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        ListTile(
-          title: Text('$courseCode - $courseCode',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium!
-                  .copyWith(fontWeight: FontWeight.w700, color: color)),
-          trailing: GestureDetector(
-              onTap: onEdit,
-              child: SvgPicture.asset(
-                AppAssets.editIcon,
-                color: color,
-              )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('$courseCode - $courseTitle',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontWeight: FontWeight.w700, color: color)),
+            GestureDetector(
+                onTap: onEdit,
+                child: SvgPicture.asset(
+                  AppAssets.editIcon,
+                  color: color,
+                )),
+          ],
         ),
         ...checklistItems.map((item) => ChecklistItem(
               title: item['title'],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChecklistItem extends StatelessWidget {
   const ChecklistItem(
@@ -6,21 +7,29 @@ class ChecklistItem extends StatelessWidget {
       required this.title,
       required this.note,
       required this.isChecked,
-      this.onToggle});
+      this.onToggle,
+      required this.activeColor});
   final String title;
   final String note;
   final bool isChecked;
   final VoidCallback? onToggle;
+  final Color activeColor;
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Checkbox(
-        value: isChecked,
-        onChanged: (value) => onToggle,
-        activeColor: Colors.orange,
-      ),
-      title: Text(title, style: Theme.of(context).textTheme.bodyMedium),
-      subtitle: Text(note, style: Theme.of(context).textTheme.bodySmall),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Checkbox(
+                value: isChecked,
+                onChanged: (value) => onToggle,
+                activeColor: activeColor),
+            Text(title, style: Theme.of(context).textTheme.bodyMedium),
+          ],
+        ),
+        Text(note, style: Theme.of(context).textTheme.bodySmall),
+      ],
     );
   }
 }

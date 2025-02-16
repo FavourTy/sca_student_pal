@@ -15,23 +15,36 @@ class CourseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding:
-          const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      leading: Container(
-        height: double.infinity,
-        width: 4.w,
-        color: color,
-      ),
-      title: Text("$code - $courseTitle",
-          style: Theme.of(context)
-              .textTheme
-              .bodyMedium!
-              .copyWith(fontWeight: FontWeight.w700)),
-      trailing: GestureDetector(
-        onTap: onEdit,
-        child: Text("Edit >", style: Theme.of(context).textTheme.bodyMedium),
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            Container(
+              width: 3,
+              height: 40,
+              decoration: BoxDecoration(color: color),
+              child: VerticalDivider(
+                width: 2,
+                color: Colors.transparent,
+                indent: 10,
+                endIndent: 10,
+                thickness: 2,
+              ),
+            ),
+            SizedBox(width: 8.w),
+            Text("$code - $courseTitle",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium!
+                    .copyWith(fontWeight: FontWeight.w700)),
+          ],
+        ),
+        GestureDetector(
+          onTap: onEdit,
+          child: Text("Edit >", style: Theme.of(context).textTheme.bodyMedium),
+        )
+      ],
     );
   }
 }

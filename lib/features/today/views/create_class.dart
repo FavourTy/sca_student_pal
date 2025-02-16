@@ -37,7 +37,6 @@ class _CreateClassState extends State<CreateClass> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () {},
                   child: Text(
                     "Cancel",
                     style: Theme.of(context)

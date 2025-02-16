@@ -6,4 +6,6 @@ class AppRouteStrings {
   static const String todayScreen = '/today_screen';
   static const String assignmentScreen = '/assignment_screen';
   static const String addClassScreen = '/add_class_screen';
+  static const String createAssignment = '/create_assignment_screen';
+  static const String createClass = '/create_class';
 }

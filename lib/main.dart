@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:student_pal/shared/custom_widget/custom_class_details.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 import 'package:student_pal/shared/navigation/app_route_string.dart';
 import 'package:student_pal/shared/navigation/app_router.dart';
 import 'package:student_pal/shared/theme/theme.dart';
+import 'package:student_pal/shared/theme/theme_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => ThemeProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -18,13 +21,19 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: AppTheme.lightMode,
-      darkTheme: AppTheme.darkMode,
-      onGenerateRoute: AppRouter.appRouter,
-      initialRoute: AppRouteStrings.base,
-      navigatorKey: AppRouter.navKey,
+    return ScreenUtilInit(
+      designSize: Size(394, 854),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return MaterialApp(
+          title: 'Flutter Demo',
+          theme: Provider.of<ThemeProvider>(context).themeData,
+          onGenerateRoute: AppRouter.appRouter,
+          initialRoute: AppRouteStrings.base,
+          navigatorKey: AppRouter.navKey,
+        );
+      },
     );
   }
 }

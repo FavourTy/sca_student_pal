@@ -53,28 +53,28 @@ class AppTheme {
     scaffoldBackgroundColor: AppColors.lightModeBackgroundColor,
     // input decoration theme : for textform field
     inputDecorationTheme: InputDecorationTheme(
-        fillColor: AppColors.lightModeBackgroundColor,
-        filled: true,
-        hintStyle: TextStyle(
-            fontSize: 14.spMin,
-            fontFamily: "Inter",
-            color: AppColors.otherLightModeTextColor,
-            fontWeight: FontWeight.w400),
-        border: OutlineInputBorder(
+      fillColor: AppColors.lightModeBackgroundColor,
+      filled: true,
+      hintStyle: TextStyle(
+          fontSize: 14.spMin,
+          fontFamily: "Inter",
+          color: AppColors.otherLightModeTextColor,
+          fontWeight: FontWeight.w400),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(color: AppColors.otherLightModeTextColor),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(color: AppColors.otherLightModeTextColor),
+      ),
+      enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: AppColors.otherLightModeTextColor),
-        ),
-        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.otherLightModeTextColor)),
+      errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: AppColors.otherLightModeTextColor),
-        ),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(color: AppColors.otherLightModeTextColor)),
-        errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(color: AppColors.otherLightModeTextColor)),
-        suffixIconColor: AppColors.otherLightModeTextColor),
+          borderSide: BorderSide(color: AppColors.otherLightModeTextColor)),
+    ),
     //checkbox theme
     checkboxTheme: CheckboxThemeData(
       checkColor: WidgetStatePropertyAll(AppColors.lightModeBackgroundColor),
@@ -86,16 +86,26 @@ class AppTheme {
     cardColor: AppColors.lightModeContainerColor,
     //bottom nav bar theme
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        elevation: 0,
+        showSelectedLabels: true,
+        showUnselectedLabels: true,
         backgroundColor: AppColors.lightModeContainerColor,
         selectedItemColor: AppColors.blueColor,
+        selectedIconTheme: IconThemeData(
+          color: AppColors.blueColor,
+        ),
+        unselectedIconTheme: IconThemeData(
+          color: AppColors.otherLightModeTextColor,
+        ),
         selectedLabelStyle: TextStyle(
-            color: AppColors.blueColor,
+            // color: AppColors.blueColor,
             fontSize: 12.spMin,
             fontFamily: "Inter",
             fontWeight: FontWeight.w400),
         unselectedItemColor: AppColors.otherLightModeTextColor,
         unselectedLabelStyle: TextStyle(
-            color: AppColors.otherLightModeTextColor,
+            // color: AppColors.otherLightModeTextColor,
             fontSize: 12.spMin,
             fontFamily: "Inter",
             fontWeight: FontWeight.w400)),
@@ -158,8 +168,18 @@ class AppTheme {
             fontWeight: FontWeight.w400)),
     //bottom nav bar theme
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      type: BottomNavigationBarType.fixed,
+      elevation: 0,
+      showSelectedLabels: true,
+      showUnselectedLabels: true,
       backgroundColor: AppColors.darkModeContainerColor,
       selectedItemColor: const Color.fromRGBO(83, 110, 255, 1),
+      selectedIconTheme: IconThemeData(
+        color: AppColors.blueColor,
+      ),
+      unselectedIconTheme: IconThemeData(
+        color: AppColors.otherLightModeTextColor,
+      ),
       selectedLabelStyle: TextStyle(
           color: AppColors.blueColor,
           fontSize: 12.spMin,
@@ -181,28 +201,28 @@ class AppTheme {
     cardColor: AppColors.darkModeContainerColor,
     // input decoration theme : for textform field
     inputDecorationTheme: InputDecorationTheme(
-        fillColor: AppColors.darkModeBackgroundColor,
-        filled: true,
-        hintStyle: TextStyle(
-            fontSize: 14.spMin,
-            fontFamily: "Inter",
-            color: AppColors.lightModeContainerColor,
-            fontWeight: FontWeight.w400),
-        border: OutlineInputBorder(
+      fillColor: AppColors.darkModeBackgroundColor,
+      filled: true,
+      hintStyle: TextStyle(
+          fontSize: 14.spMin,
+          fontFamily: "Inter",
+          color: AppColors.lightModeContainerColor,
+          fontWeight: FontWeight.w400),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(color: AppColors.lightModeContainerColor),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8.0),
+        borderSide: BorderSide(color: AppColors.lightModeContainerColor),
+      ),
+      enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: AppColors.lightModeContainerColor),
-        ),
-        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: AppColors.lightModeContainerColor)),
+      errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
-          borderSide: BorderSide(color: AppColors.lightModeContainerColor),
-        ),
-        enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(color: AppColors.lightModeContainerColor)),
-        errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8.0),
-            borderSide: BorderSide(color: AppColors.lightModeContainerColor)),
-        suffixIconColor: AppColors.otherLightModeTextColor),
+          borderSide: BorderSide(color: AppColors.lightModeContainerColor)),
+    ),
     //checkbox theme
     checkboxTheme: CheckboxThemeData(
       checkColor: WidgetStatePropertyAll(AppColors.darkModeBackgroundColor),

@@ -3,9 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:student_pal/shared/constants.dart';
 import 'package:student_pal/shared/custom_widget/color_pallete.dart';
+import 'package:student_pal/shared/custom_widget/input_text.dart';
 import 'package:student_pal/shared/navigation/app_route_string.dart';
 import 'package:student_pal/shared/navigation/app_router.dart';
-
 import '../../../shared/app_colors.dart';
 import '../../../shared/custom_widget/custom_text_form_field.dart';
 
@@ -24,7 +24,8 @@ class _CreateClassState extends State<CreateClass> {
   String _endTime = "9:30 PM";
   int _selectedRemind = 5;
   String _selectedRepeat = "None";
-
+  final String _courseTitle = "Eg Engineering Mathematics";
+  final String _courseCodeHint = "Eg Eng 204"
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,6 +38,9 @@ class _CreateClassState extends State<CreateClass> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
+                  onTap: () {
+                    AppRouter.pop(AppRouteStrings.settingsScreen);
+                  },
                   child: Text(
                     "Cancel",
                     style: Theme.of(context)
@@ -47,7 +51,7 @@ class _CreateClassState extends State<CreateClass> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _validateDate();
+                    _validateDate(context);
                   },
                   child: Text(
                     "Save",
@@ -73,16 +77,16 @@ class _CreateClassState extends State<CreateClass> {
               SizedBox(
                 height: 20.h,
               ),
-              CustomTextFormField(
+              InputText(
                   title: "Course Title",
-                  hintText: "Eg Engineering Mathematics",
+                  myHintText: _courseTitle,
                   controller: _courseTitleController),
               SizedBox(
                 height: 10.h,
               ),
-              CustomTextFormField(
+              InputText(
                   title: "Course Code",
-                  hintText: "Eg Eng 204",
+                  myHintText: _courseCodeHint,
                   controller: _courseCodeController),
               SizedBox(
                 height: 10.h,
@@ -206,7 +210,7 @@ class _CreateClassState extends State<CreateClass> {
     );
   }
 
-  _validateDate() {
+  _validateDate(BuildContext context) {
     if (_courseTitleController.text.isNotEmpty &&
         _courseCodeController.text.isNotEmpty) {
       //add to database
@@ -217,11 +221,19 @@ class _CreateClassState extends State<CreateClass> {
       );
     } else if (_courseTitleController.text.isEmpty ||
         _courseCodeController.text.isEmpty) {
-      SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
           content: Text(
-        "All fields are required",
-        style: Theme.of(context).textTheme.bodyMedium,
-      ));
+            "All fields are required",
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+      );
+      // SnackBar(
+      //     content: Text(
+      //   "All fields are required",
+      //   style: Theme.of(context).textTheme.bodyMedium,
+      // ));
       print(
         "dont",
       );

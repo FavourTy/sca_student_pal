@@ -6,11 +6,13 @@ import 'package:student_pal/shared/custom_widget/color_pallete.dart';
 import 'package:student_pal/shared/custom_widget/input_text.dart';
 import 'package:student_pal/shared/navigation/app_route_string.dart';
 import 'package:student_pal/shared/navigation/app_router.dart';
+
 import '../../../shared/app_colors.dart';
 import '../../../shared/custom_widget/custom_text_form_field.dart';
 
 class CreateClass extends StatefulWidget {
   const CreateClass({super.key});
+
   @override
   State<CreateClass> createState() => _CreateClassState();
 }
@@ -25,6 +27,7 @@ class _CreateClassState extends State<CreateClass> {
   String _selectedRepeat = "None";
   final String _courseTitle = "Eg Engineering Mathematics";
   final String _courseCodeHint = "Eg Eng 204";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -11,6 +11,7 @@ import '../../../shared/custom_widget/custom_text_form_field.dart';
 
 class CreateClass extends StatefulWidget {
   const CreateClass({super.key});
+
   @override
   State<CreateClass> createState() => _CreateClassState();
 }
@@ -24,7 +25,7 @@ class _CreateClassState extends State<CreateClass> {
   int _selectedRemind = 5;
   String _selectedRepeat = "None";
   final String _courseTitle = "Eg Engineering Mathematics";
-  final String _courseCodeHint = "Eg Eng 204";
+  final String _courseCodeHint = "Eg Eng 204"
   @override
   Widget build(BuildContext context) {
     return Scaffold(

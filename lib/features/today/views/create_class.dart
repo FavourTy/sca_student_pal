@@ -25,7 +25,7 @@ class _CreateClassState extends State<CreateClass> {
   int _selectedRemind = 5;
   String _selectedRepeat = "None";
   final String _courseTitle = "Eg Engineering Mathematics";
-  final String _courseCodeHint = "Eg Eng 204"
+  final String _courseCodeHint = "Eg Eng 204";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

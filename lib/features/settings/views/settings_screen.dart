@@ -75,7 +75,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         onTap: () {
                           AppRouter.push(AppRouteStrings.createClass);
                         },
-                        child: SvgPicture.asset(AppAssets.addIcon)),
+                        child: Icon(Icons.add)),
                     Text(
                       "class",
                       style: Theme.of(context)

@@ -11,6 +11,7 @@ import '../../../shared/custom_widget/custom_text_form_field.dart';
 
 class CreateClass extends StatefulWidget {
   const CreateClass({super.key});
+
   @override
   State<CreateClass> createState() => _CreateClassState();
 }
@@ -23,6 +24,7 @@ class _CreateClassState extends State<CreateClass> {
   String _endTime = "9:30 PM";
   int _selectedRemind = 5;
   String _selectedRepeat = "None";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,9 +37,7 @@ class _CreateClassState extends State<CreateClass> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 GestureDetector(
-                  onTap: () {
-                  Navigator.pop(context);
-                },
+                  onTap: () {},
                   child: Text(
                     "Cancel",
                     style: Theme.of(context)

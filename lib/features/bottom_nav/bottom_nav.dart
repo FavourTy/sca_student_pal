@@ -15,6 +15,14 @@ class CustomButtomNavBar extends StatefulWidget {
 }
 
 class _CustomButtomNavBarState extends State<CustomButtomNavBar> {
+  // void initState() {
+  //   super.initState();
+  //   notifyHelper = NottificationServices();
+  //   notifyHelper.requestIosPermissions();
+  // }
+
+  // var notifyHelper;
+
   int _selectedIndex = 0;
   void onTapItem(int index) {
     setState(() {

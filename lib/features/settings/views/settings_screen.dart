@@ -1,7 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
+import 'package:student_pal/features/settings/view_model/course_provider.dart';
 import 'package:student_pal/shared/app_assets.dart';
-import 'package:student_pal/shared/app_colors.dart';
 import 'package:student_pal/shared/custom_widget/classes_listTile.dart';
 import 'package:student_pal/shared/custom_widget/custom_switch.dart';
 import 'package:student_pal/shared/custom_widget/information_card.dart';
@@ -67,44 +70,45 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   "Classes Settings",
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
-                Row(
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          AppRouter.push(AppRouteStrings.createClass);
-                        },
-                        child: Icon(Icons.add)),
-                    Text(
-                      "class",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(fontWeight: FontWeight.w700),
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    AppRouter.push(AppRouteStrings.createCourse);
+                  },
+                  child: Text(
+                    "+ course",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontWeight: FontWeight.w700),
+                  ),
                 ),
               ],
             ),
             SizedBox(height: 10),
-            CourseTile(
-              code: "ENG 204",
-              courseTitle: "Engineering Mathematics",
-              color: AppColors.violetColor,
-              onEdit: () {},
-            ),
-            Divider(),
-            CourseTile(
-              code: "MEE 204",
-              courseTitle: "ThermoDynamics",
-              color: AppColors.violetColor,
-              onEdit: () {},
-            ),
-            Divider(),
-            CourseTile(
-              code: "MTE 204",
-              courseTitle: "Mechatronics Engineering ",
-              color: AppColors.blueColor,
-              onEdit: () {},
+            Consumer<CourseProvider>(
+              builder: (context, courseProvider, child) {
+                if (courseProvider.courses.isEmpty) {
+                  return Center(
+                    child: Text("No courses available",
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayLarge!
+                            .copyWith(fontSize: 30)),
+                  );
+                }
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: courseProvider.courses.length,
+                  itemBuilder: (context, index) {
+                    final course = courseProvider.courses[index];
+                    return CourseTile(
+                      code: course.code ?? "N/A",
+                      courseTitle: course.title ?? "Untitled",
+                      color: Color(course.color ?? Colors.grey.value),
+                    );
+                  },
+                );
+              },
             ),
             SizedBox(
               height: 20.h,

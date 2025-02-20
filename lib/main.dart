@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:student_pal/features/settings/view_model/course_provider.dart';
+import 'package:student_pal/features/today/view_models/create_class_provider.dart';
+import 'package:student_pal/repository/create_new_class_repo.dart';
 import 'package:student_pal/services/nottification_services.dart';
 import 'package:student_pal/shared/navigation/app_route_string.dart';
 import 'package:student_pal/shared/navigation/app_router.dart';
@@ -9,8 +12,13 @@ import 'package:student_pal/shared/theme/theme_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NottificationServices.initializeNotification();
-  runApp(ChangeNotifierProvider(
-      create: (context) => ThemeProvider(), child: const MyApp()));
+  await CreateNewClassRepo.deleteDataBase();
+  await CreateNewClassRepo.initializeDb();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (context) => ThemeProvider()),
+    ChangeNotifierProvider(create: (context) => CreateClassProvider()),
+    ChangeNotifierProvider(create: (context) => CourseProvider()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {

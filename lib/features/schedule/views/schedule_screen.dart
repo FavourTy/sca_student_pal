@@ -1,13 +1,8 @@
-// ignore_for_file: unused_element
-
 import 'package:calendar_view/calendar_view.dart' as calendar_view;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:time_planner/time_planner.dart';
 import '../../../shared/app_colors.dart';
-import 'package:calendar_view/src/style/header_style.dart';
 
 class ScheduleScreen extends StatefulWidget {
   const ScheduleScreen({super.key});

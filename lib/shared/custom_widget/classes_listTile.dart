@@ -15,35 +15,41 @@ class CourseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              width: 3,
-              height: 40,
-              decoration: BoxDecoration(color: color),
-              child: VerticalDivider(
-                width: 2,
-                color: Colors.transparent,
-                indent: 10,
-                endIndent: 10,
-                thickness: 2,
-              ),
+            Row(
+              children: [
+                Container(
+                  width: 3,
+                  height: 40,
+                  decoration: BoxDecoration(color: color),
+                  child: VerticalDivider(
+                    width: 2,
+                    color: Colors.transparent,
+                    indent: 10,
+                    endIndent: 10,
+                    thickness: 2,
+                  ),
+                ),
+                SizedBox(width: 8.w),
+                Text("$code - $courseTitle",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium!
+                        .copyWith(fontWeight: FontWeight.w700)),
+              ],
             ),
-            SizedBox(width: 8.w),
-            Text("$code - $courseTitle",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyMedium!
-                    .copyWith(fontWeight: FontWeight.w700)),
+            GestureDetector(
+              onTap: onEdit,
+              child:
+                  Text("Edit >", style: Theme.of(context).textTheme.bodyMedium),
+            )
           ],
         ),
-        GestureDetector(
-          onTap: onEdit,
-          child: Text("Edit >", style: Theme.of(context).textTheme.bodyMedium),
-        )
+        Divider(),
       ],
     );
   }

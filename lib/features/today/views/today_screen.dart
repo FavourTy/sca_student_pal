@@ -19,9 +19,9 @@ class _TodayScreenState extends State<TodayScreen> {
   List<Map<String, dynamic>> schedule = [
     {
       'time': '09:10 AM',
+      'timer': 'Now',
       'title': 'MGT 101 - Organization Management',
       'room': 'Room 101',
-      'color': Colors.amber,
       'assignments': [
         {'title': 'Checklist title 1', 'completed': true},
         {'title': 'Checklist title 2', 'completed': false},
@@ -30,25 +30,81 @@ class _TodayScreenState extends State<TodayScreen> {
     },
     {
       'time': '09:10 AM',
-      'title': 'EC 203 - Principles Macroeconomics',
-      'room': 'Room 213',
-      'color': Colors.teal,
-      'assignments': []
+      'timer': 'Now',
+      'title': 'MGT 101 - Organization Management',
+      'room': 'Room 101',
+      'assignments': [
+        {'title': 'Checklist title 1', 'completed': true},
+        {'title': 'Checklist title 2', 'completed': false},
+        {'title': 'Checklist title 3', 'completed': false},
+      ]
     },
     {
-      'time': '10:10 AM',
-      'title': 'EC 202 - Principles Microeconomics',
-      'room': 'Room 302',
-      'color': Colors.purple,
-      'assignments': []
+      'time': '09:10 AM',
+      'timer': 'Now',
+      'title': 'MGT 101 - Organization Management',
+      'room': 'Room 101',
+      'assignments': [
+        {'title': 'Checklist title 1', 'completed': true},
+        {'title': 'Checklist title 2', 'completed': false},
+        {'title': 'Checklist title 3', 'completed': false},
+      ]
     },
     {
-      'time': '11:10 AM',
-      'title': 'FN 215 - Financial Management',
-      'room': 'Room 111',
-      'color': Colors.blue,
-      'assignments': []
-    }
+      'time': '09:10 AM',
+      'timer': 'Now',
+      'title': 'MGT 101 - Organization Management',
+      'room': 'Room 101',
+      'assignments': [
+        {'title': 'Checklist title 1', 'completed': true},
+        {'title': 'Checklist title 2', 'completed': false},
+        {'title': 'Checklist title 3', 'completed': false},
+      ]
+    },
+    {
+      'time': '09:10 AM',
+      'timer': 'Now',
+      'title': 'MGT 101 - Organization Management',
+      'room': 'Room 101',
+      'assignments': [
+        {'title': 'Checklist title 1', 'completed': true},
+        {'title': 'Checklist title 2', 'completed': false},
+        {'title': 'Checklist title 3', 'completed': false},
+      ]
+    },
+    {
+      'time': '09:10 AM',
+      'timer': 'Now',
+      'title': 'MGT 101 - Organization Management',
+      'room': 'Room 101',
+      'assignments': [
+        {'title': 'Checklist title 1', 'completed': true},
+        {'title': 'Checklist title 2', 'completed': false},
+        {'title': 'Checklist title 3', 'completed': false},
+      ]
+    },
+    {
+      'time': '09:10 AM',
+      'timer': 'Now',
+      'title': 'MGT 101 - Organization Management',
+      'room': 'Room 101',
+      'assignments': [
+        {'title': 'Checklist title 1', 'completed': true},
+        {'title': 'Checklist title 2', 'completed': false},
+        {'title': 'Checklist title 3', 'completed': false},
+      ]
+    },
+    {
+      'time': '09:10 AM',
+      'timer': 'Now',
+      'title': 'MGT 101 - Organization Management',
+      'room': 'Room 101',
+      'assignments': [
+        {'title': 'Checklist title 1', 'completed': true},
+        {'title': 'Checklist title 2', 'completed': false},
+        {'title': 'Checklist title 3', 'completed': false},
+      ]
+    },
   ];
 
   @override
@@ -78,6 +134,7 @@ class _TodayScreenState extends State<TodayScreen> {
             TableCalendar(
               rowHeight: 33.h,
               daysOfWeekHeight: 30.h,
+              calendarStyle: CalendarStyle(isTodayHighlighted: false),
               calendarBuilders: CalendarBuilders(
                 dowBuilder: (_, d) {
                   return Container(
@@ -167,28 +224,273 @@ class _TodayScreenState extends State<TodayScreen> {
                   itemBuilder: (context, index) {
                     var item = schedule[index];
                     return Card(
-                      color: item['color'],
-                      child: ExpansionTile(
-                        title: Text(item['title'],
-                            style: const TextStyle(color: Colors.white)),
-                        subtitle: Text(
-                          '${item['time']} • ${item['room']}',
-                          style: const TextStyle(color: Colors.white70),
-                        ),
-                        children: item['assignments'].map<Widget>((assignment) {
-                          return CheckboxListTile(
-                            title: Text(
-                              assignment['title'],
-                              style: const TextStyle(color: Colors.white),
+                      shadowColor: Colors.transparent,
+                      color: Theme.of(context).cardColor,
+                      margin: const EdgeInsets.symmetric(vertical: 8.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                item['timer'],
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                              ),
                             ),
-                            value: assignment['completed'],
-                            onChanged: (val) {
-                              setState(() {
-                                assignment['completed'] = val!;
-                              });
-                            },
-                          );
-                        }).toList(),
+                            ExpansionTile(
+                              controlAffinity: ListTileControlAffinity.leading,
+                              tilePadding:
+                                  const EdgeInsets.symmetric(horizontal: 10.0),
+                              expandedCrossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                              expandedAlignment: Alignment.topLeft,
+                              childrenPadding:
+                                  const EdgeInsets.symmetric(horizontal: 16.0),
+                              shape: const RoundedRectangleBorder(
+                                side: BorderSide.none,
+                              ),
+                              title: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(item['time'],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displaySmall
+                                          ?.copyWith(
+                                            fontSize: 14.sp,
+                                            fontWeight: FontWeight.w400,
+                                          )),
+                                  SizedBox(width: 5),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(item['title'],
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium
+                                                ?.copyWith(
+                                                    fontSize: 18.sp,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: AppColors
+                                                        .warningColor)),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '• ${item['room']} ',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displaySmall
+                                                  ?.copyWith(
+                                                    fontSize: 14.sp,
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                            ),
+                                            // Missing Assignment Indicator
+                                            if (item['assignments'].any(
+                                                (assignment) => !assignment[
+                                                    'completed'])) ...[
+                                              Container(
+                                                padding: EdgeInsets.all(6),
+                                                decoration: BoxDecoration(
+                                                  color:
+                                                      AppColors.disclaimerColor,
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Text(
+                                                  item['assignments']
+                                                      .where((assignment) =>
+                                                          !assignment[
+                                                              'completed'])
+                                                      .length
+                                                      .toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 12),
+                                                ),
+                                              ),
+                                              Text(
+                                                ' Missing assignment',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .displaySmall
+                                                    ?.copyWith(
+                                                      fontSize: 13.sp,
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                    ),
+                                              )
+                                            ],
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              children: [
+                                Column(
+                                  // crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    const SizedBox(height: 10),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Assignments',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                fontSize: 16.sp,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        // Trash Icon
+                                        // IconButton(
+                                        //   onPressed: () {
+                                        //     // Implement delete functionality here
+                                        //   },
+                                        //   icon: const Icon(Icons.delete,
+                                        //       color: Colors.red),
+                                        // ),
+                                        if (item['assignments'].any(
+                                            (assignment) =>
+                                                !assignment['completed'])) ...[
+                                          Container(
+                                            padding: EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.disclaimerColor,
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Text(
+                                              item['assignments']
+                                                  .where((assignment) =>
+                                                      !assignment['completed'])
+                                                  .length
+                                                  .toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            ),
+                                          ),
+                                        ],
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10),
+                                    ...item['assignments']
+                                        .map<Widget>((assignment) {
+                                      return CheckboxListTile(
+                                        activeColor: AppColors.warningColor,
+                                        contentPadding: EdgeInsets.only(
+                                            left: 100, right: 50),
+                                        // contentPadding: EdgeInsets.zero,
+                                        title: Text(
+                                          assignment['title'],
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                fontSize: 16.sp,
+                                              ),
+                                        ),
+                                        value: assignment['completed'],
+                                        onChanged: (val) {
+                                          setState(() {
+                                            assignment['completed'] = val!;
+                                          });
+                                        },
+                                      );
+                                    }).toList(),
+                                    // Add Assignment Button
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        TextButton.icon(
+                                          style: TextButton.styleFrom(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              side: BorderSide(
+                                                color: AppColors.actionColor,
+                                                width: 2,
+                                              ),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            // Add functionality to add an assignment
+                                          },
+                                          label: Text(
+                                            'Cancel',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium
+                                                ?.copyWith(
+                                                  fontSize: 15.sp,
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        TextButton.icon(
+                                          style: TextButton.styleFrom(
+                                            backgroundColor:
+                                                AppColors.actionColor,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                          ),
+                                          onPressed: () {
+                                            // Add functionality to add an assignment
+                                          },
+                                          icon: Icon(
+                                            size: 20,
+                                            Icons.add,
+                                            color: AppColors
+                                                .darkModeBackgroundColor,
+                                          ),
+                                          label: Text(
+                                            'Assignment',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium
+                                                ?.copyWith(
+                                                    fontSize: 15.sp,
+                                                    fontWeight: FontWeight.w700,
+                                                    color: AppColors
+                                                        .darkModeBackgroundColor),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },

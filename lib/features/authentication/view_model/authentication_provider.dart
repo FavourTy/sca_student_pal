@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:student_pal/services/firebase_services.dart';
 
+import '../../settings/model/user_model.dart';
+
 class AuthenticationProvider extends ChangeNotifier {
   final FirebaseService firebaseService;
 
   AuthenticationProvider({required this.firebaseService});
 
   bool loading = false;
+  UserModel? userModel;
+
+  Future<void> fetchUserDetails() async {
+    loading = true;
+    notifyListeners();
+
+    userModel = await firebaseService.getUserDetails();
+
+    loading = false;
+    notifyListeners();
+  }
 
   Future<void> logout() async {
     await firebaseService.logout();
@@ -30,11 +43,16 @@ class AuthenticationProvider extends ChangeNotifier {
   }
 
   Future<({bool? registered, String? error})> register(
-      {required String email, required String password}) async {
+      {required String email,
+      required String password,
+      required String name}) async {
     loading = true;
     notifyListeners();
-    final login =
-        await firebaseService.register(email: email, password: password);
+    final login = await firebaseService.register(
+      name: name,
+      email: email,
+      password: password,
+    );
     if (login.registered ?? false) {
       loading = false;
       notifyListeners();

@@ -22,6 +22,22 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   @override
+  void initState() {
+    super.initState();
+    Future.microtask(() async {
+      try {
+        if (!mounted) {
+          return; // Prevents accessing context if widget is disposed
+        }
+        await Provider.of<AuthenticationProvider>(context, listen: false)
+            .fetchUserDetails();
+      } catch (e) {
+        debugPrint("Error fetching user details: $e");
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<AuthenticationProvider>(
       builder: (BuildContext context, AuthenticationProvider authProvider,
@@ -59,12 +75,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
                 SizedBox(height: 16),
                 InformationCard(
-                    name: "Florencia Yanuzzi", image: AppAssets.profileIcon),
+                    name: authProvider.userModel?.name ?? "Loading...",
+                    image: AppAssets.profileIcon),
                 SizedBox(height: 8),
                 Divider(),
                 SizedBox(height: 8),
                 InformationCard(
-                    name: "florenciayanuzzi@gmail.com",
+                    name: authProvider.userModel?.email ?? "Loading...",
                     image: AppAssets.emailIcon),
                 SizedBox(
                   height: 16,
@@ -133,25 +150,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 CustomSwitch(),
                 Divider(),
                 SizedBox(
-                  height: 20.h,
+                  height: 10.h,
                 ),
-                Center(
-                  child: TextButton(
-                      onPressed: () {
-                        authProvider.logout().then((_) =>
-                            AppRouter.pushAndClear(
-                                AppRouteStrings.loginScreen));
-                      },
-                      child: Text(
-                        "Logout",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.disclaimerColor),
-                      )),
+                TextButton(
+                    onPressed: () {
+                      authProvider.logout().then((_) =>
+                          AppRouter.pushAndClear(AppRouteStrings.loginScreen));
+                    },
+                    child: Text(
+                      "Logout",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                              fontSize: 20.sp,
+                              fontWeight: FontWeight.w700,
+                              color: AppColors.disclaimerColor),
+                    )),
+                Divider(),
+                SizedBox(
+                  height: 20.h,
                 ),
               ],
             ),

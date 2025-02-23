@@ -8,16 +8,23 @@ import 'package:student_pal/features/today/views/create_assignment_screen.dart';
 import 'package:student_pal/features/today/views/create_class.dart';
 import 'package:student_pal/features/today/views/today_screen.dart';
 
+import '../../features/authentication/views/login_screen.dart';
+import '../../features/authentication/views/register_screen.dart';
 import 'app_route_string.dart';
 
 class AppRouter {
   static final navKey = GlobalKey<NavigatorState>();
+
   static Route appRouter(RouteSettings settings) {
     switch (settings.name) {
       case AppRouteStrings.base:
         return CupertinoPageRoute(builder: (_) => const CustomButtomNavBar());
       case AppRouteStrings.scheduleScreen:
         return CupertinoPageRoute(builder: (_) => const ScheduleScreen());
+      case AppRouteStrings.loginScreen:
+        return CupertinoPageRoute(builder: (_) => const LoginScreen());
+      case AppRouteStrings.registerScreen:
+        return CupertinoPageRoute(builder: (_) => const RegisterScreen());
       case AppRouteStrings.settingsScreen:
         return CupertinoPageRoute(builder: (_) => const SettingsScreen());
       case AppRouteStrings.todayScreen:

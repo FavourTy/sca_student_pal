@@ -47,7 +47,7 @@ class _MyAppState extends State<MyApp> {
           title: 'Flutter Demo',
           theme: Provider.of<ThemeProvider>(context).themeData,
           onGenerateRoute: AppRouter.appRouter,
-          initialRoute: AppRouteStrings.base,
+          initialRoute: AppRouteStrings.loginScreen,
           navigatorKey: AppRouter.navKey,
         );
       },

@@ -16,13 +16,7 @@ class _PriorityScreenState extends State<PriorityScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: ListView(
-        children: [
-          //   CourseTile(
-          //       code: "ENG 205",
-          //       courseTitle: "Engineeering Mathematics",
-          //       color: AppColors.warningColor),
-          //
-        ],
+        children: [],
       ),
     );
   }

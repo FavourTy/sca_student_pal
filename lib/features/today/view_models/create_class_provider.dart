@@ -33,15 +33,15 @@ class CreateClassProvider with ChangeNotifier {
     _classes = await CreateNewClassRepo.getAllClass();
     notifyListeners();
   }
-  //update a task
+  //update a class
 
   Future<void> updateClass(CreateNewClass createnewclass) async {
     await CreateNewClassRepo.updateClass(createnewclass);
     await getAllClasses();
   }
 
-//delete a task
-  Future<void> deleteTask(int id) async {
+//delete a class
+  Future<void> deleteClass(int id) async {
     await CreateNewClassRepo.deleteClass(id);
     await getAllClasses();
   }

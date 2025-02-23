@@ -6,4 +6,3 @@ List<String> classesList = [
   "MEE 206 - Thermodynamics",
   "MEE 206 - Thermodynamics",
 ];
-List<String> recurrenceList = ["weekly", "Bi-weekly"];

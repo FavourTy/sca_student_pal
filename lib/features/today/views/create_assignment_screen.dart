@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:student_pal/features/assignments/model/assignment_model.dart';
+import 'package:student_pal/features/assignments/view_model/assignment_provider.dart';
 import 'package:student_pal/shared/app_colors.dart';
 import 'package:student_pal/shared/constants.dart';
 import 'package:student_pal/shared/custom_widget/custom_text_form_field.dart';
@@ -9,7 +12,8 @@ import 'package:student_pal/shared/navigation/app_route_string.dart';
 import 'package:student_pal/shared/navigation/app_router.dart';
 
 class CreateAssignmentScreen extends StatefulWidget {
-  const CreateAssignmentScreen({super.key});
+  final int classId;
+  const CreateAssignmentScreen({super.key, required this.classId});
 
   @override
   State<CreateAssignmentScreen> createState() => _CreateAssignmentScreenState();
@@ -21,9 +25,12 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
   bool _ischecked = false;
   final String _titleHint = "Eg Read Book";
   DateTime _selectedDueDate = DateTime.now();
+  String _reminderTime =
+      DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _defaultRepeatList = "None";
   int _defaultReminder = 5;
-  String _selected = "ENG 201 - Engineering Mathematics";
+  DateTime _selectedRemindDate = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,37 +89,6 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
               SizedBox(
                 height: 10.h,
               ),
-              CustomTextFormField(
-                hintText: _selected,
-                title: "Class name",
-                widget: DropdownButton(
-                    icon: Icon(
-                      Icons.keyboard_arrow_down,
-                    ),
-                    iconSize: 32,
-                    elevation: 4,
-                    underline: Container(
-                      height: 0.h,
-                    ),
-                    style: Theme.of(context).textTheme.bodyMedium,
-                    items: classesList
-                        .map<DropdownMenuItem<String>>((String? value) {
-                      return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(
-                            value!,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ));
-                    }).toList(),
-                    onChanged: (String? newvalue) {
-                      setState(() {
-                        _selected = newvalue!;
-                      });
-                    }),
-              ),
-              SizedBox(
-                height: 10.h,
-              ),
               Text(
                 "Details",
                 style: Theme.of(context).textTheme.bodyMedium,
@@ -137,6 +113,30 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
                 widget: IconButton(
                     onPressed: () {
                       _getDueDateFromUser();
+                    },
+                    icon: Icon(Icons.calendar_today_outlined)),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              CustomTextFormField(
+                hintText: "Reminder Date",
+                title: "Reminder Date",
+                widget: IconButton(
+                    onPressed: () {
+                      _getReminderDateFromUser();
+                    },
+                    icon: Icon(Icons.calendar_today_outlined)),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              CustomTextFormField(
+                hintText: _reminderTime,
+                title: "Reminder Time",
+                widget: IconButton(
+                    onPressed: () {
+                      _getRemindTimeFromUser(isRemindTime: true);
                     },
                     icon: Icon(Icons.calendar_today_outlined)),
               ),
@@ -232,6 +232,40 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
     }
   }
 
+  _getReminderDateFromUser() async {
+    DateTime? _isPicked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(2020),
+        lastDate: DateTime(2125));
+    if (_isPicked != null) {
+      setState(() {
+        _selectedRemindDate = _isPicked;
+      });
+    }
+  }
+
+  _getRemindTimeFromUser({required bool isRemindTime}) async {
+    var isPickedTime = await _showTimePicker();
+    String formattedTime = isPickedTime.format(context);
+    if (isPickedTime == null) {
+      print("ime canceled");
+    } else if (isRemindTime == true) {
+      setState(() {
+        _reminderTime = formattedTime;
+      });
+    }
+  }
+
+  _showTimePicker() {
+    return showTimePicker(
+        initialEntryMode: TimePickerEntryMode.input,
+        context: context,
+        initialTime: TimeOfDay(
+            hour: int.parse(_reminderTime.split(":")[0]),
+            minute: int.parse(_reminderTime.split(":")[1].split(" ")[0])));
+  }
+
   _validateInfo(BuildContext context) {
     if (_titleController.text.isNotEmpty &&
         _detailsController.text.isNotEmpty) {
@@ -248,5 +282,17 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
         ),
       );
     }
+  }
+
+  _addAssignmentToDb(BuildContext context) async {
+    final assignmentProvider =
+        Provider.of<AssignmentProvider>(context, listen: false);
+    int value = await assignmentProvider.addClass(
+        assignmentModel: AssignmentModel(
+            classId: widget.classId,
+            title: _titleController.text,
+            dueDate: DateFormat.yMd().format(_selectedDueDate),
+            remind: _defaultReminder,
+            description: _detailsController.text));
   }
 }

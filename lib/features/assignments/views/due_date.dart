@@ -5,7 +5,6 @@ import 'package:student_pal/shared/custom_widget/assignment_card.dart';
 
 class DueDate extends StatefulWidget {
   const DueDate({super.key});
-
   @override
   State<DueDate> createState() => _DueDateState();
 }

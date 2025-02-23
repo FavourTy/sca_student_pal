@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/app_colors.dart';
-import '../../../shared/custom_widget/classes_listTile.dart';
+import '../../../shared/custom_widget/courses_listTile.dart';
 
 class PriorityScreen extends StatefulWidget {
   const PriorityScreen({super.key});
@@ -16,12 +16,7 @@ class _PriorityScreenState extends State<PriorityScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: ListView(
-        children: [
-          CourseTile(
-              code: "ENG 205",
-              courseTitle: "Engineeering Mathematics",
-              color: AppColors.warningColor),
-        ],
+        children: [],
       ),
     );
   }

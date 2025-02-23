@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:student_pal/shared/custom_widget/custom_button.dart';
 
 class CourseTile extends StatelessWidget {
   const CourseTile(
@@ -7,12 +8,13 @@ class CourseTile extends StatelessWidget {
       required this.code,
       required this.courseTitle,
       required this.color,
-      this.onEdit});
+      required this.onEdit,
+      required this.title});
   final String code;
   final String courseTitle;
   final Color color;
-  final VoidCallback? onEdit;
-
+  final VoidCallback onEdit;
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,11 +44,12 @@ class CourseTile extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.w700)),
               ],
             ),
-            GestureDetector(
-              onTap: onEdit,
-              child:
-                  Text("Edit >", style: Theme.of(context).textTheme.bodyMedium),
-            )
+            Expanded(child: CustomButton(title: title, onEdit: onEdit))
+            // GestureDetector(
+            //   onTap: onEdit,
+            //   child:
+            //       Text("Edit >", style: Theme.of(context).textTheme.bodyMedium),
+            // )
           ],
         ),
         Divider(),

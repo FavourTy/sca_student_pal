@@ -12,23 +12,29 @@ import '../../../shared/app_colors.dart';
 import '../../../shared/custom_widget/custom_text_form_field.dart';
 
 class CreateClass extends StatefulWidget {
-  const CreateClass({super.key});
+  final String courseTitle;
+  final String courseCode;
+  final int courseColor;
+  final int courseId;
+  const CreateClass(
+      {super.key,
+      required this.courseTitle,
+      required this.courseCode,
+      required this.courseColor,
+      required this.courseId});
 
   @override
   State<CreateClass> createState() => _CreateClassState();
 }
 
 class _CreateClassState extends State<CreateClass> {
-  final TextEditingController _courseTitleController = TextEditingController();
-  final TextEditingController _courseCodeController = TextEditingController();
-  DateTime _selectedDate = DateTime.now();
+  DateTime _selectedStartDate = DateTime.now();
+  DateTime _selectedEndDate = DateTime.now();
   String _startTime = DateFormat("hh:mm a").format(DateTime.now()).toString();
   String _endTime = "9:30 PM";
   int _selectedRemind = 5;
   String _selectedRepeat = "None";
-  int _selectedIndex = 0;
-  final String _courseTitle = "Eg Engineering Mathematics";
-  final String _courseCodeHint = "Eg Eng 204";
+  List<String> _selectedRecurrenceDays = [];
 
   @override
   Widget build(BuildContext context) {
@@ -82,25 +88,39 @@ class _CreateClassState extends State<CreateClass> {
                 height: 20.h,
               ),
               InputText(
-                  title: "Course Title",
-                  myHintText: _courseTitle,
-                  controller: _courseTitleController),
+                readOnly: true,
+                title: "Course Title",
+                myHintText: widget.courseTitle,
+              ),
               SizedBox(
                 height: 10.h,
               ),
               InputText(
-                  title: "Course Code",
-                  myHintText: _courseCodeHint,
-                  controller: _courseCodeController),
+                title: "Course Code",
+                myHintText: widget.courseCode,
+                readOnly: true,
+              ),
               SizedBox(
                 height: 10.h,
               ),
               CustomTextFormField(
-                title: "Date",
-                hintText: DateFormat.yMd().format(_selectedDate),
+                title: " start Date",
+                hintText: DateFormat.yMd().format(_selectedStartDate),
                 widget: IconButton(
                     onPressed: () {
-                      _getDateFromUser();
+                      _getStartDateFromUser();
+                    },
+                    icon: Icon(Icons.calendar_today_outlined)),
+              ),
+              SizedBox(
+                height: 10.h,
+              ),
+              CustomTextFormField(
+                title: "End Date",
+                hintText: DateFormat.yMd().format(_selectedEndDate),
+                widget: IconButton(
+                    onPressed: () {
+                      _getEndDateFromUser();
                     },
                     icon: Icon(Icons.calendar_today_outlined)),
               ),
@@ -197,6 +217,19 @@ class _CreateClassState extends State<CreateClass> {
                     }),
               ),
               SizedBox(
+                height: 10,
+              ),
+              CustomTextFormField(
+                  hintText: _selectedRecurrenceDays.isNotEmpty
+                      ? _selectedRecurrenceDays.join(", ")
+                      : " Select days",
+                  title: "Reccurence",
+                  widget: IconButton(
+                      onPressed: () {
+                        _showRecurrenceSelector(context);
+                      },
+                      icon: Icon(Icons.keyboard_arrow_down))),
+              SizedBox(
                 height: 10.h,
               ),
               Text(
@@ -206,36 +239,8 @@ class _CreateClassState extends State<CreateClass> {
               SizedBox(
                 height: 10.h,
               ),
-              Wrap(
-                children: List<Widget>.generate(4, (int index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: CircleAvatar(
-                        radius: 14,
-                        backgroundColor: index == 0
-                            ? AppColors.blueColor
-                            : index == 1
-                                ? AppColors.successColor
-                                : index == 2
-                                    ? AppColors.violetColor
-                                    : AppColors.warningColor,
-                        child: _selectedIndex == index
-                            ? Icon(
-                                Icons.done,
-                                size: 16,
-                              )
-                            : Container(),
-                      ),
-                    ),
-                  );
-                }),
-              )
+              CircleAvatar(
+                  radius: 14, backgroundColor: Color(widget.courseColor)),
             ],
           ),
         ),
@@ -244,23 +249,9 @@ class _CreateClassState extends State<CreateClass> {
   }
 
   _validateDate(BuildContext context) {
-    if (_courseTitleController.text.isNotEmpty &&
-        _courseCodeController.text.isNotEmpty) {
-      //add to database
-      _addClassToDb(context);
-      // go back to previous page
-      AppRouter.push(AppRouteStrings.todayScreen);
-    } else if (_courseTitleController.text.isEmpty ||
-        _courseCodeController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            "All fields are required",
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-        ),
-      );
-    }
+    _addClassToDb(context);
+    // go back to previous page
+    AppRouter.pushReplace(AppRouteStrings.base);
   }
 
   _addClassToDb(BuildContext context) async {
@@ -268,20 +259,22 @@ class _CreateClassState extends State<CreateClass> {
         Provider.of<CreateClassProvider>(context, listen: false);
     int value = await createNewClassProvider.addClass(
         createNewClass: CreateNewClass(
-      color: _selectedIndex,
-      courseTitle: _courseTitleController.text,
-      courseCode: _courseCodeController.text,
-      isCompleted: 0,
-      repeat: _selectedRepeat,
-      remind: _selectedRemind,
-      startTime: _startTime,
-      endTime: _endTime,
-      date: DateFormat.yMd().format(_selectedDate),
-    ));
+            courseId: widget.courseId,
+            title: widget.courseTitle,
+            note: widget.courseCode,
+            recurrence: _selectedRecurrenceDays,
+            isCompleted: 0,
+            repeat: _selectedRepeat,
+            remind: _selectedRemind,
+            startTime: _startTime,
+            endTime: _endTime,
+            startDate: DateFormat.yMd().format(_selectedStartDate),
+            endDate: DateFormat.yMd().format(_selectedEndDate),
+            color: widget.courseColor));
     print("my value is " + "$value");
   }
 
-  _getDateFromUser() async {
+  _getStartDateFromUser() async {
     DateTime? pickDate = await showDatePicker(
         context: context,
         firstDate: DateTime(2020),
@@ -289,7 +282,20 @@ class _CreateClassState extends State<CreateClass> {
         lastDate: DateTime(2125));
     if (pickDate != null) {
       setState(() {
-        _selectedDate = pickDate;
+        _selectedStartDate = pickDate;
+      });
+    }
+  }
+
+  _getEndDateFromUser() async {
+    DateTime? pickDate = await showDatePicker(
+        context: context,
+        firstDate: DateTime(2020),
+        initialDate: DateTime.now(),
+        lastDate: DateTime(2125));
+    if (pickDate != null) {
+      setState(() {
+        _selectedEndDate = pickDate;
       });
     }
   }
@@ -317,5 +323,82 @@ class _CreateClassState extends State<CreateClass> {
         initialTime: TimeOfDay(
             hour: int.parse(_startTime.split(":")[0]),
             minute: int.parse(_startTime.split(":")[1].split(" ")[0])));
+  }
+
+  //recurrence selector
+
+  _showRecurrenceSelector(BuildContext context) async {
+    final List<String> weekdays = [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ];
+
+    final selectedDays = await showDialog<List<String>>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).cardColor,
+          title: Text(
+            "Select Recurrence Days",
+            style: Theme.of(context)
+                .textTheme
+                .bodyMedium!
+                .copyWith(fontSize: 16.sp),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: weekdays.map((day) {
+                return CheckboxListTile(
+                  title: Text(
+                    day,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  value: _selectedRecurrenceDays.contains(day),
+                  onChanged: (bool? value) {
+                    setState(() {
+                      if (value == true) {
+                        _selectedRecurrenceDays.add(day);
+                      } else {
+                        _selectedRecurrenceDays.remove(day);
+                      }
+                    });
+                  },
+                );
+              }).toList(),
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: Text("Cancel",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyMedium!
+                      .copyWith(color: AppColors.deleteColor)),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            TextButton(
+              child:
+                  Text("Save", style: Theme.of(context).textTheme.bodyMedium),
+              onPressed: () {
+                Navigator.of(context).pop(_selectedRecurrenceDays);
+              },
+            )
+          ],
+        );
+      },
+    );
+
+    if (selectedDays != null) {
+      setState(() {
+        _selectedRecurrenceDays = selectedDays;
+      });
+    }
   }
 }

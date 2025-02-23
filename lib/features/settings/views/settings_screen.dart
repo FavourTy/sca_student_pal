@@ -1,11 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:student_pal/features/settings/view_model/course_provider.dart';
+import 'package:student_pal/features/today/views/create_class.dart';
 import 'package:student_pal/shared/app_assets.dart';
-import 'package:student_pal/shared/custom_widget/classes_listTile.dart';
+import 'package:student_pal/shared/app_colors.dart';
+import 'package:student_pal/shared/custom_widget/courses_listTile.dart';
 import 'package:student_pal/shared/custom_widget/custom_switch.dart';
 import 'package:student_pal/shared/custom_widget/information_card.dart';
 import 'package:student_pal/shared/navigation/app_route_string.dart';
@@ -90,10 +93,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 if (courseProvider.courses.isEmpty) {
                   return Center(
                     child: Text("No courses available",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayLarge!
-                            .copyWith(fontSize: 30)),
+                        style: Theme.of(context).textTheme.displayLarge),
                   );
                 }
                 return ListView.builder(
@@ -105,6 +105,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       code: course.code ?? "N/A",
                       courseTitle: course.title ?? "Untitled",
                       color: Color(course.color ?? Colors.grey.value),
+                      onEdit: () {
+                        Navigator.push(
+                            context,
+                            CupertinoPageRoute(
+                                builder: (_) => CreateClass(
+                                    courseTitle: course.title ?? " ",
+                                    courseCode: course.code ?? " ",
+                                    courseColor: course.color ??
+                                        AppColors.actionColor.value,
+                                    courseId: course.id ?? 0)));
+                      },
+                      title: " Add class",
                     );
                   },
                 );

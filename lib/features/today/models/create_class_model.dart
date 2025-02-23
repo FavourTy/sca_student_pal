@@ -1,42 +1,51 @@
 class CreateNewClass {
   int? id;
-  String? courseTitle;
-  String? courseCode;
+  int? courseId;
   int? isCompleted;
-  String? date;
+  String? startDate;
+  String? endDate;
+  List<String> recurrence;
   String? startTime;
   String? endTime;
-  int? color;
   int? remind;
   String? repeat;
+  String? title;
+  String? note;
+  int? color;
 
   // Constructor
   CreateNewClass({
+    this.courseId,
     this.id,
-    this.courseTitle,
-    this.courseCode,
     this.isCompleted,
-    this.date,
+    this.startDate,
+    this.endDate,
+    this.recurrence = const [],
     this.startTime,
     this.endTime,
-    this.color,
     this.remind,
     this.repeat,
+    this.title,
+    this.note,
+    this.color,
   });
 
   // Factory constructor for JSON deserialization
   factory CreateNewClass.fromJson(Map<String, dynamic> json) {
     return CreateNewClass(
       id: json['id'],
-      courseTitle: json['title'],
-      courseCode: json['note'],
+      courseId: json['courseId'],
       isCompleted: json['isCompleted'],
-      date: json['date'],
+      startDate: json['startDate'],
+      endDate: json['endDate'],
+      recurrence: (json['recurrence'] as String).split(", "),
       startTime: json['startTime'],
       endTime: json['endTime'],
-      color: json['color'],
       remind: json['remind'],
       repeat: json['repeat'],
+      title: json['title'],
+      note: json['note'],
+      color: json['color'],
     );
   }
 
@@ -44,15 +53,18 @@ class CreateNewClass {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'title': courseTitle,
-      'note': courseCode,
+      'courseId': courseId,
       'isCompleted': isCompleted,
-      'date': date,
+      'startDate': startDate,
+      'endDate': endDate,
+      'recurrence': recurrence.join(", "),
       'startTime': startTime,
       'endTime': endTime,
-      'color': color,
       'remind': remind,
       'repeat': repeat,
+      'title': title,
+      'note': note,
+      'color': color,
     };
   }
 }

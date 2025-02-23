@@ -10,8 +10,9 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.8
   provider: ^6.1.2
-  # firebase_auth: ^5.4.2
-  # cloud_firestore: ^5.6.3
+  firebase_auth: ^5.5.0
+  cloud_firestore: ^5.6.4
+  firebase_storage: ^12.4.3
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.0.17
   intl: ^0.20.2
@@ -22,8 +23,9 @@ dependencies:
   flutter_timezone: ^4.1.0
   timezone: ^0.10.0
   flutter_staggered_animations: ^1.1.1
+  firebase_core: ^3.12.0
 
-  
+
 
 
 dev_dependencies:
@@ -39,13 +41,13 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   fonts:
-     - family: Inter
-       fonts:
-         - asset: assets/fonts/Inter-Bold.ttf
-         - asset: assets/fonts/Inter-Light.ttf
-         - asset: assets/fonts/Inter-Medium.ttf
-         - asset: assets/fonts/Inter-Regular.ttf
-         - asset: assets/fonts/Inter-SemiBold.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Bold.ttf
+        - asset: assets/fonts/Inter-Light.ttf
+        - asset: assets/fonts/Inter-Medium.ttf
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-SemiBold.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

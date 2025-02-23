@@ -17,4 +17,5 @@ class AppColors {
   static const Color navbarTextColor = Color(0x99EBEBF5); //60%
   static const Color lightModeTextColor = Color(0xFF010618);
   static const Color otherLightModeTextColor = Color(0xFF21283F);
+  static const Color deleteColor = Colors.red;
 }

@@ -8,7 +8,17 @@ class CreateClassProvider with ChangeNotifier {
   List<CreateNewClass> get classes => _classes;
   //add class to db
   Future<int> addClass({CreateNewClass? createNewClass}) async {
-    return await CreateNewClassRepo.insertClass(createNewClass);
+    try {
+      if (createNewClass == null) {
+        throw Exception("Class data is null");
+      }
+      final int id = await CreateNewClassRepo.insertClass(createNewClass);
+      await getAllClasses();
+      return id;
+    } catch (e) {
+      print("Error adding c: $e");
+      rethrow;
+    }
   }
 
   //get all tasks
@@ -33,6 +43,12 @@ class CreateClassProvider with ChangeNotifier {
 //delete a task
   Future<void> deleteTask(int id) async {
     await CreateNewClassRepo.deleteClass(id);
+    await getAllClasses();
+  }
+
+//mark class as completed
+  void markClassCompleted(int id) async {
+    await CreateNewClassRepo.updateCompletedClass(id);
     await getAllClasses();
   }
 }

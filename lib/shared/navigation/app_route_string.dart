@@ -8,4 +8,5 @@ class AppRouteStrings {
   static const String addClassScreen = '/add_class_screen';
   static const String createAssignment = '/create_assignment_screen';
   static const String createClass = '/create_class';
+  static const String createCourse = '/create_course';
 }

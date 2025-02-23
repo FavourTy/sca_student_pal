@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
+import 'package:student_pal/features/today/models/create_class_model.dart';
+import 'package:student_pal/features/today/view_models/create_class_provider.dart';
 import 'package:student_pal/shared/constants.dart';
-import 'package:student_pal/shared/custom_widget/color_pallete.dart';
 import 'package:student_pal/shared/custom_widget/input_text.dart';
 import 'package:student_pal/shared/navigation/app_route_string.dart';
 import 'package:student_pal/shared/navigation/app_router.dart';
@@ -24,8 +26,10 @@ class _CreateClassState extends State<CreateClass> {
   String _endTime = "9:30 PM";
   int _selectedRemind = 5;
   String _selectedRepeat = "None";
+  int _selectedIndex = 0;
   final String _courseTitle = "Eg Engineering Mathematics";
   final String _courseCodeHint = "Eg Eng 204";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -202,7 +206,36 @@ class _CreateClassState extends State<CreateClass> {
               SizedBox(
                 height: 10.h,
               ),
-              ColorPallete(),
+              Wrap(
+                children: List<Widget>.generate(4, (int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: CircleAvatar(
+                        radius: 14,
+                        backgroundColor: index == 0
+                            ? AppColors.blueColor
+                            : index == 1
+                                ? AppColors.successColor
+                                : index == 2
+                                    ? AppColors.violetColor
+                                    : AppColors.warningColor,
+                        child: _selectedIndex == index
+                            ? Icon(
+                                Icons.done,
+                                size: 16,
+                              )
+                            : Container(),
+                      ),
+                    ),
+                  );
+                }),
+              )
             ],
           ),
         ),
@@ -214,11 +247,9 @@ class _CreateClassState extends State<CreateClass> {
     if (_courseTitleController.text.isNotEmpty &&
         _courseCodeController.text.isNotEmpty) {
       //add to database
+      _addClassToDb(context);
       // go back to previous page
       AppRouter.push(AppRouteStrings.todayScreen);
-      print(
-        "All fields are required",
-      );
     } else if (_courseTitleController.text.isEmpty ||
         _courseCodeController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -229,15 +260,25 @@ class _CreateClassState extends State<CreateClass> {
           ),
         ),
       );
-      // SnackBar(
-      //     content: Text(
-      //   "All fields are required",
-      //   style: Theme.of(context).textTheme.bodyMedium,
-      // ));
-      print(
-        "dont",
-      );
     }
+  }
+
+  _addClassToDb(BuildContext context) async {
+    final createNewClassProvider =
+        Provider.of<CreateClassProvider>(context, listen: false);
+    int value = await createNewClassProvider.addClass(
+        createNewClass: CreateNewClass(
+      color: _selectedIndex,
+      courseTitle: _courseTitleController.text,
+      courseCode: _courseCodeController.text,
+      isCompleted: 0,
+      repeat: _selectedRepeat,
+      remind: _selectedRemind,
+      startTime: _startTime,
+      endTime: _endTime,
+      date: DateFormat.yMd().format(_selectedDate),
+    ));
+    print("my value is " + "$value");
   }
 
   _getDateFromUser() async {

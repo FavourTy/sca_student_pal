@@ -22,8 +22,9 @@ dependencies:
   flutter_timezone: ^4.1.0
   timezone: ^0.10.0
   flutter_staggered_animations: ^1.1.1
+  firebase_core: ^3.12.0
 
-  
+
 
 
 dev_dependencies:
@@ -39,13 +40,13 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   fonts:
-     - family: Inter
-       fonts:
-         - asset: assets/fonts/Inter-Bold.ttf
-         - asset: assets/fonts/Inter-Light.ttf
-         - asset: assets/fonts/Inter-Medium.ttf
-         - asset: assets/fonts/Inter-Regular.ttf
-         - asset: assets/fonts/Inter-SemiBold.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Bold.ttf
+        - asset: assets/fonts/Inter-Light.ttf
+        - asset: assets/fonts/Inter-Medium.ttf
+        - asset: assets/fonts/Inter-Regular.ttf
+        - asset: assets/fonts/Inter-SemiBold.ttf
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

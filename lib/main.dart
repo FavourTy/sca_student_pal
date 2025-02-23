@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
@@ -9,11 +10,16 @@ import 'package:student_pal/shared/navigation/app_route_string.dart';
 import 'package:student_pal/shared/navigation/app_router.dart';
 import 'package:student_pal/shared/theme/theme_provider.dart';
 
+import 'firebase_options.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NottificationServices.initializeNotification();
   await CreateNewClassRepo.deleteDataBase();
   await CreateNewClassRepo.initializeDb();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ChangeNotifierProvider(create: (context) => CreateClassProvider()),

@@ -116,9 +116,21 @@ class _LoginScreenState extends State<LoginScreen> {
                                 email: emailController.text,
                                 password: passwordController.text);
                             if (a.error != null) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                                  content: Text(a.error ??
-                                      "User doesn't exist Kindly register")));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                  a.error ??
+                                      "User doesn't exist Kindly register",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 15.sp,
+                                        color: Colors.white,
+                                      ),
+                                ),
+                                backgroundColor: AppColors.disclaimerColor,
+                              ));
                             } else {
                               AppRouter.pushAndClear(AppRouteStrings.base);
                             }

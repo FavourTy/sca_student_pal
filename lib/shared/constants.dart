@@ -6,3 +6,6 @@ List<String> classesList = [
   "MEE 206 - Thermodynamics",
   "MEE 206 - Thermodynamics",
 ];
+
+final emailRegex = RegExp(
+    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");

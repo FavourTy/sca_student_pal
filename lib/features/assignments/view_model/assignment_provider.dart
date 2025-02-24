@@ -3,11 +3,11 @@ import 'package:student_pal/features/assignments/model/assignment_model.dart';
 import 'package:student_pal/repository/create_new_class_repo.dart';
 
 class AssignmentProvider with ChangeNotifier {
-  List<AssignmentModel> _assignments = [];
-  List<AssignmentModel> get classes => _assignments;
+  List<AssignmentModel> assignments = [];
+  List<AssignmentModel> get classes => assignments;
 
   //add assignment to db
-  Future<int> addClass({AssignmentModel? assignmentModel}) async {
+  Future<int> addAssignment({AssignmentModel? assignmentModel}) async {
     try {
       if (assignmentModel == null) {
         throw Exception("assignment data is null");
@@ -22,7 +22,7 @@ class AssignmentProvider with ChangeNotifier {
   }
 
   Future<void> getAllAssignment() async {
-    _assignments = await CreateNewClassRepo.getAllAssignment();
+    assignments = await CreateNewClassRepo.getAllAssignment();
     notifyListeners();
   }
 

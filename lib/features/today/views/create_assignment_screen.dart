@@ -13,7 +13,15 @@ import 'package:student_pal/shared/navigation/app_router.dart';
 
 class CreateAssignmentScreen extends StatefulWidget {
   final int classId;
-  const CreateAssignmentScreen({super.key, required this.classId});
+  final int courseColor;
+  final String courseName;
+  final String courseCode;
+  const CreateAssignmentScreen(
+      {super.key,
+      required this.classId,
+      required this.courseColor,
+      required this.courseName,
+      required this.courseCode});
 
   @override
   State<CreateAssignmentScreen> createState() => _CreateAssignmentScreenState();
@@ -120,7 +128,7 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
                 height: 10.h,
               ),
               CustomTextFormField(
-                hintText: "Reminder Date",
+                hintText: DateFormat.yMd().format(_selectedRemindDate),
                 title: "Reminder Date",
                 widget: IconButton(
                     onPressed: () {
@@ -138,7 +146,7 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
                     onPressed: () {
                       _getRemindTimeFromUser(isRemindTime: true);
                     },
-                    icon: Icon(Icons.calendar_today_outlined)),
+                    icon: Icon(Icons.access_time_rounded)),
               ),
               SizedBox(
                 height: 10,
@@ -269,7 +277,8 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
   _validateInfo(BuildContext context) {
     if (_titleController.text.isNotEmpty &&
         _detailsController.text.isNotEmpty) {
-      AppRouter.push(AppRouteStrings.assignmentScreen);
+      _addAssignmentToDb(context);
+      AppRouter.push(AppRouteStrings.base);
       print("successful");
     } else if (_titleController.text.isEmpty ||
         _detailsController.text.isEmpty) {
@@ -287,12 +296,21 @@ class _CreateAssignmentScreenState extends State<CreateAssignmentScreen> {
   _addAssignmentToDb(BuildContext context) async {
     final assignmentProvider =
         Provider.of<AssignmentProvider>(context, listen: false);
-    int value = await assignmentProvider.addClass(
+    int value = await assignmentProvider.addAssignment(
         assignmentModel: AssignmentModel(
             classId: widget.classId,
             title: _titleController.text,
             dueDate: DateFormat.yMd().format(_selectedDueDate),
             remind: _defaultReminder,
-            description: _detailsController.text));
+            description: _detailsController.text,
+            reminderDate: DateFormat.yMd().format(_selectedRemindDate),
+            reminderTime: _reminderTime,
+            priority: 0,
+            isCompleted: 0,
+            notificationId: 0,
+            courseCode: widget.courseCode,
+            courseColor: widget.courseColor,
+            courseName: widget.courseName));
+    print("my value is " + "$value");
   }
 }

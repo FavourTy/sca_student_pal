@@ -80,8 +80,11 @@ class CreateNewClassRepo {
         reminderTime TEXT,
         reminderDate TEXT,
         notificationId INTEGER,
-        title TEXT NOT NULL,
-        description TEXT NOT NULL,
+        title TEXT,
+        description TEXT,
+        courseName TEXT NOT NULL,
+        courseCode TEXT NOT NULL,
+        courseColor INTEGER NOT NULL,
         FOREIGN KEY (classId) REFERENCES $_classTableName(id) ON DELETE CASCADE
       )
     ''');

@@ -22,10 +22,6 @@ class AuthTextInput extends StatelessWidget {
       inputFormatters: inputFormatter,
       decoration: InputDecoration(
         labelText: label,
-        border: OutlineInputBorder(),
-        enabledBorder: OutlineInputBorder(),
-        focusedBorder: OutlineInputBorder(),
-        focusedErrorBorder: OutlineInputBorder(),
       ),
     );
   }

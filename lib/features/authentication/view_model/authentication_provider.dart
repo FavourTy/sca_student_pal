@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:student_pal/services/firebase_services.dart';
 
-import '../../settings/model/user_model.dart';
-
 class AuthenticationProvider extends ChangeNotifier {
   final FirebaseService firebaseService;
 
   AuthenticationProvider({required this.firebaseService});
 
   bool loading = false;
-  UserModel? userModel;
-
-  Future<void> fetchUserDetails() async {
-    loading = true;
-    notifyListeners();
-
-    userModel = await firebaseService.getUserDetails();
-
-    loading = false;
-    notifyListeners();
-  }
 
   Future<void> logout() async {
     await firebaseService.logout();

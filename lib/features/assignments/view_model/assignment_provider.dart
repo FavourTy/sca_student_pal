@@ -4,6 +4,7 @@ import 'package:student_pal/repository/create_new_class_repo.dart';
 
 class AssignmentProvider with ChangeNotifier {
   List<AssignmentModel> assignments = [];
+
   List<AssignmentModel> get classes => assignments;
 
   //add assignment to db
@@ -14,6 +15,7 @@ class AssignmentProvider with ChangeNotifier {
       }
       final int id = await CreateNewClassRepo.insertAssignment(assignmentModel);
       await getAllAssignment();
+      notifyListeners();
       return id;
     } catch (e) {
       print("Error adding c: $e");

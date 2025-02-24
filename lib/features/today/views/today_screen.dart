@@ -12,6 +12,7 @@ import 'package:student_pal/shared/custom_widget/custom_button.dart';
 import 'package:student_pal/shared/custom_widget/get_assignment_list.dart';
 import 'package:student_pal/shared/custom_widget/show_bottom_sheet_button.dart';
 import 'package:table_calendar/table_calendar.dart';
+
 import '../../../shared/app_colors.dart';
 
 class TodayScreen extends StatefulWidget {
@@ -25,6 +26,7 @@ class _TodayScreenState extends State<TodayScreen> {
   DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
   var notifyHelper = NottificationServices();
+
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
@@ -149,6 +151,7 @@ class _TodayScreenState extends State<TodayScreen> {
                       itemBuilder: (context, index) {
                         CreateNewClass createNewClass =
                             classProvider.classes[index];
+                        // final classes = classProvider.classes.first;
                         final timeFormat = DateFormat('hh:mm a');
                         final dateTime = timeFormat
                             .parse(createNewClass.startTime.toString());
@@ -216,9 +219,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text(
-                                                      classProvider
-                                                              .classes
-                                                              .firstOrNull!
+                                                      createNewClass
                                                               .startTime ??
                                                           "",
                                                       style: Theme.of(context)
@@ -237,21 +238,19 @@ class _TodayScreenState extends State<TodayScreen> {
                                                               .start,
                                                       children: [
                                                         Text(
-                                                            " ${classProvider.classes.firstOrNull?.note ?? " "} - ${classProvider.classes.firstOrNull?.title ?? " "} ",
+                                                            " ${createNewClass.note ?? " "} - ${createNewClass.title ?? " "} ",
                                                             style: Theme.of(
                                                                     context)
                                                                 .textTheme
                                                                 .displayMedium
                                                                 ?.copyWith(
-                                                                    fontSize:
-                                                                        18.sp,
+                                                                    fontSize: 18
+                                                                        .sp,
                                                                     fontWeight:
                                                                         FontWeight
                                                                             .w700,
-                                                                    color: Color(classProvider
-                                                                            .classes
-                                                                            .firstOrNull
-                                                                            ?.color ??
+                                                                    color: Color(createNewClass
+                                                                            .color ??
                                                                         Colors
                                                                             .grey
                                                                             .value))),
@@ -308,7 +307,12 @@ class _TodayScreenState extends State<TodayScreen> {
                                                             SizedBox(
                                                               height: 10.h,
                                                             ),
-                                                            GetAssignmentList(),
+                                                            GetAssignmentList(
+                                                              classId:
+                                                                  createNewClass
+                                                                          .id ??
+                                                                      0,
+                                                            ),
                                                             SizedBox(
                                                               height: 15.h,
                                                             ),
@@ -363,7 +367,7 @@ class _TodayScreenState extends State<TodayScreen> {
                                                                       Navigator.push(
                                                                           context,
                                                                           CupertinoPageRoute(
-                                                                              builder: (_) => CreateAssignmentScreen(courseColor: classProvider.classes.firstOrNull?.color ?? 0, courseCode: classProvider.classes.firstOrNull!.note ?? ' ', classId: classProvider.classes.firstOrNull!.id ?? 0, courseName: classProvider.classes.firstOrNull!.title ?? ' ')));
+                                                                              builder: (_) => CreateAssignmentScreen(courseColor: createNewClass.color ?? 0, courseCode: createNewClass.note ?? ' ', classId: createNewClass.id ?? 0, courseName: createNewClass.title ?? ' ')));
                                                                     })
                                                               ],
                                                             )

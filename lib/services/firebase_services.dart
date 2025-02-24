@@ -49,19 +49,20 @@ class FirebaseService {
     } catch (_) {}
   }
 
-  Future<UserModel?> getUserDetails() async {
+  Future<UserModel?> getUserData() async {
     try {
-      final userId = auth.currentUser?.uid;
-      if (userId == null) return null;
+      String? uid = auth.currentUser?.uid;
+      if (uid == null) return null;
 
-      final userDoc = await fireStore.collection("users").doc(userId).get();
+      DocumentSnapshot<Map<String, dynamic>> doc =
+          await fireStore.collection("users").doc(uid).get();
 
-      if (userDoc.exists) {
-        return UserModel.fromJson(userDoc.data()!);
+      if (doc.exists) {
+        return UserModel.fromJson(doc.data()!);
       }
+      return null;
     } catch (e) {
-      print("Error fetching user details: $e");
+      return null;
     }
-    return null;
   }
 }

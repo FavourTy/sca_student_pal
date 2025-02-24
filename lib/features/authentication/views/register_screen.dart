@@ -89,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ],
                         validator: (a) {
                           if (!emailRegex.hasMatch(a ?? "")) {
-                            return "Inavlid email";
+                            return "Invalid email";
                           }
                           return null;
                         },
@@ -154,7 +154,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     .textTheme
                                     .displayMedium
                                     ?.copyWith(
-                                        fontSize: 15.sp,
+                                        fontSize: 18.sp,
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.blueColor),
                               )
@@ -164,7 +164,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 .textTheme
                                 .displayMedium
                                 ?.copyWith(
-                                  fontSize: 15.sp,
+                                  fontSize: 18.sp,
                                   fontWeight: FontWeight.w700,
                                 ),
                           )),

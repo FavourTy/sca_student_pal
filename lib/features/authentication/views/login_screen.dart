@@ -145,7 +145,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .textTheme
                                   .displayMedium
                                   ?.copyWith(
-                                      fontSize: 15.sp,
+                                      fontSize: 18.sp,
                                       fontWeight: FontWeight.w700,
                                       color: AppColors.blueColor),
                             )
@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               .textTheme
                               .displayMedium
                               ?.copyWith(
-                                fontSize: 15.sp,
+                                fontSize: 18.sp,
                                 fontWeight: FontWeight.w700,
                               ),
                         )),

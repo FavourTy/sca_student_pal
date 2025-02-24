@@ -4,7 +4,7 @@ Student Pal is a scheduler app designed to help students efficiently manage thei
 completed tasks.
 
 ## Features
-
+- Add courses
 - Create and manage academic tasks
 - Mark tasks as completed
 - User authentication with Firebase
@@ -15,6 +15,7 @@ completed tasks.
 - Flutter for cross-platform development
 - Firebase for authentication and Firestore database
 - Provider for state management
+- Sql database for local storage 
 
 ## Screenshots
 

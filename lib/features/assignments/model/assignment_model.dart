@@ -10,6 +10,9 @@ class AssignmentModel {
   String? reminderTime;
   String? reminderDate;
   int? notificationId;
+  String? courseName;
+  String? courseCode;
+  int? courseColor;
 
   AssignmentModel(
       {this.classId,
@@ -22,7 +25,10 @@ class AssignmentModel {
       this.priority,
       this.reminderTime,
       this.reminderDate,
-      this.notificationId});
+      this.notificationId,
+      this.courseName,
+      this.courseCode,
+      this.courseColor});
 
   factory AssignmentModel.fromJson(Map<String, dynamic> json) {
     return AssignmentModel(
@@ -30,13 +36,16 @@ class AssignmentModel {
         classId: json['id'],
         dueDate: json['dueDate'],
         isCompleted: json['isCompleted'],
-        description: json['note'],
+        description: json['description'],
         title: json['title'],
         remind: json['remind'],
         priority: json['priority'],
         reminderTime: json['reminderTime'],
         reminderDate: json['reminderDate'],
-        notificationId: json['notificationId']);
+        notificationId: json['notificationId'],
+        courseName: json['courseName'],
+        courseCode: json['courseCode'],
+        courseColor: json['courseColor']);
   }
 
   Map<String, dynamic> toJson() {
@@ -51,7 +60,10 @@ class AssignmentModel {
       'priority': priority,
       'reminderTime': reminderTime,
       'reminderDate': reminderDate,
-      'notificationId': notificationId
+      'notificationId': notificationId,
+      'courseName': courseName,
+      'courseCode': courseCode,
+      'courseColor': courseColor
     };
   }
 }

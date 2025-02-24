@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:student_pal/features/assignments/view_model/assignment_provider.dart';
 import 'package:student_pal/features/settings/view_model/course_provider.dart';
 import 'package:student_pal/features/today/view_models/create_class_provider.dart';
 import 'package:student_pal/repository/create_new_class_repo.dart';
@@ -18,6 +19,7 @@ void main() async {
     ChangeNotifierProvider(create: (context) => ThemeProvider()),
     ChangeNotifierProvider(create: (context) => CreateClassProvider()),
     ChangeNotifierProvider(create: (context) => CourseProvider()),
+    ChangeNotifierProvider(create: (context) => AssignmentProvider())
   ], child: const MyApp()));
 }
 

@@ -38,12 +38,7 @@ class AssignmentCard extends StatelessWidget {
                 )),
           ],
         ),
-        ...checklistItems.map((item) => ChecklistItem(
-              title: item['title'],
-              note: item['note'],
-              isChecked: item['checked'],
-              activeColor: item['color'],
-            )),
+       
       ],
     );
   }

@@ -113,11 +113,8 @@ class CreateNewClassRepo {
     if (_database == null) {
       await initializeDb();
     }
-    final List<Map<String, dynamic>> maps =
-        await _database!.query(_classTableName);
-    return List.generate(maps.length, (i) {
-      return CreateNewClass.fromJson(maps[i]);
-    });
+    final maps = await _database!.query(_classTableName);
+    return maps.map((map) => CreateNewClass.fromJson(map)).toList();
   }
 
   static Future<List<CreateNewClass>> getClassesByCourseId(int courseId) async {

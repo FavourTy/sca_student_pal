@@ -20,17 +20,13 @@ class _ClassesListsState extends State<ClassesLists> {
             return ListView.builder(
                 itemCount: classprovider.classes.length,
                 itemBuilder: (context, index) {
+                  final classList = classprovider.classes[index];
                   return ClassTile(
-                      startTime:
-                          classprovider.classes.firstOrNull!.startTime ?? " ",
-                      endTime:
-                          classprovider.classes.firstOrNull!.endTime ?? " ",
-                      courseCode:
-                          classprovider.classes.firstOrNull!.note ?? " ",
-                      courseTitle:
-                          classprovider.classes.firstOrNull!.title ?? " ",
-                      color: Color(classprovider.classes.firstOrNull!.color ??
-                          Colors.grey.value));
+                      startTime: classList.startTime ?? " ",
+                      endTime: classList.endTime ?? " ",
+                      courseCode: classList.note ?? " ",
+                      courseTitle: classList.title ?? " ",
+                      color: Color(classList.color ?? Colors.grey.value));
                 });
           },
         ));

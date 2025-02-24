@@ -10,11 +10,13 @@ class CourseTile extends StatelessWidget {
       required this.color,
       required this.onEdit,
       required this.title});
+
   final String code;
   final String courseTitle;
   final Color color;
   final VoidCallback onEdit;
   final String title;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -44,7 +46,16 @@ class CourseTile extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.w700)),
               ],
             ),
-            Expanded(child: CustomButton(title: title, onEdit: onEdit))
+            SizedBox(
+              width: 30.w,
+            ),
+            SizedBox(
+              width: 130,
+              child: CustomButton(
+                title: title,
+                onEdit: onEdit,
+              ),
+            )
             // GestureDetector(
             //   onTap: onEdit,
             //   child:

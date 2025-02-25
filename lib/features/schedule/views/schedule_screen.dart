@@ -1,8 +1,10 @@
 import 'package:calendar_view/calendar_view.dart' as calendar_view;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:student_pal/features/today/models/create_class_model.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../../today/view_models/create_class_provider.dart';
 
@@ -24,7 +26,6 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
     _addEvents();
     super.initState();
   }
-
   // void _addEvents() {
   //   final createClassProvider =
   //       Provider.of<CreateClassProvider>(context, listen: false);
@@ -36,60 +37,23 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   //     DateTime startTime = timeFormat.parse(classItem.startTime.toString());
   //     DateTime endTime = timeFormat.parse(classItem.endTime.toString());
 
-  //     DateTime eventStart = DateTime(startDate.year, startDate.month,
-  //         startDate.day, startTime.hour, startTime.minute);
-  //     DateTime eventEnd = DateTime(endDate.year, endDate.month, endDate.day,
-  //         endTime.hour, endTime.minute);
+  //     // Combine date and time for the initial event
+  //     DateTime eventStart = DateTime(
+  //       startDate.year,
+  //       startDate.month,
+  //       startDate.day,
+  //       startTime.hour,
+  //       startTime.minute,
+  //     );
+  //     DateTime eventEnd = DateTime(
+  //       startDate.year,
+  //       startDate.month,
+  //       startDate.day,
+  //       endTime.hour,
+  //       endTime.minute,
+  //     );
 
-  //     _eventController.add(calendar_view.CalendarEventData(
-  //         title: classItem.title!,
-  //         startTime: eventStart,
-  //         endTime: eventEnd,
-  //         date: startDate));
-  //     if (classItem.recurrence == "Weekly") {
-  //       DateTime currentDate = startDate.add(Duration(days: 7));
-  //       while (currentDate.isBefore(endTime)) {
-  //         _eventController.add(calendar_view.CalendarEventData(
-  //           title: classItem.title!,
-  //           startTime: DateTime(
-  //             currentDate.year,
-  //             currentDate.month,
-  //             currentDate.day,
-  //             startTime.hour,
-  //             startTime.minute,
-  //           ),
-  //           endTime: DateTime(
-  //             currentDate.year,
-  //             currentDate.month,
-  //             currentDate.day,
-  //             endTime.hour,
-  //             endTime.minute,
-  //           ),
-  //           date: currentDate,
-  //         ));
-  //         currentDate = currentDate.add(Duration(days: 7));
-  //       }
-  //     }
-  //   }
-  // }
-  // void _addEvents() {
-  //   final createClassProvider =
-  //       Provider.of<CreateClassProvider>(context, listen: false);
-
-  //   for (var classItem in createClassProvider.classes) {
-  //     DateTime startDate =
-  //         DateFormat.yMd().parse(classItem.startDate.toString());
-  //     DateTime endDate = DateFormat.yMd().parse(classItem.endDate.toString());
-  //     final timeFormat = DateFormat('hh:mm a');
-  //     DateTime startTime = timeFormat.parse(classItem.startTime.toString());
-  //     DateTime endTime = timeFormat.parse(classItem.endTime.toString());
-
-  //     DateTime eventStart = DateTime(startDate.year, startDate.month,
-  //         startDate.day, startTime.hour, startTime.minute);
-  //     DateTime eventEnd = DateTime(startDate.year, startDate.month,
-  //         startDate.day, endTime.hour, endTime.minute);
-
-  //     // Add initial event
+  //     // Add the initial event
   //     _eventController.add(calendar_view.CalendarEventData(
   //       title: classItem.title!,
   //       startTime: eventStart,
@@ -97,37 +61,56 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
   //       date: startDate,
   //     ));
 
-  //     // Handle recurrence
-  //     if (classItem.recurrence == "Weekly") {
-  //       DateTime currentDate = startDate.add(const Duration(days: 7));
-  //       while (currentDate.isBefore(endDate) ||
-  //           currentDate.isAtSameMomentAs(endDate)) {
-  //         DateTime recurringStart = DateTime(
-  //           currentDate.year,
-  //           currentDate.month,
-  //           currentDate.day,
-  //           startTime.hour,
-  //           startTime.minute,
-  //         );
-  //         DateTime recurringEnd = DateTime(
-  //           currentDate.year,
-  //           currentDate.month,
-  //           currentDate.day,
-  //           endTime.hour,
-  //           endTime.minute,
-  //         );
+  //     // Handle recurrence based on the selected days
+  //     if (classItem.recurrence.isNotEmpty) {
+  //       List<String> recurrenceDays = classItem.recurrence;
+  //       // Map weekdays to their corresponding DateTime.weekday values
+  //       Map<String, int> weekdayMap = {
+  //         "Monday": 1,
+  //         "Tuesday": 2,
+  //         "Wednesday": 3,
+  //         "Thursday": 4,
+  //         "Friday": 5,
+  //         "Saturday": 6,
+  //         "Sunday": 7,
+  //       };
 
-  //         _eventController.add(calendar_view.CalendarEventData(
-  //           title: classItem.title!,
-  //           startTime: recurringStart,
-  //           endTime: recurringEnd,
-  //           date: currentDate,
-  //         ));
+  //       // Iterate through each selected recurrence day
+  //       for (var day in recurrenceDays) {
+  //         int targetWeekday = weekdayMap[day]!;
 
-  //         currentDate = currentDate.add(const Duration(days: 7));
-  //         // Move to next week
+  //         // Find the next occurrence of the target weekday
+  //         DateTime currentDate = startDate.add(Duration(days: 1));
+  //         while (currentDate.isBefore(endDate) ||
+  //             currentDate.isAtSameMomentAs(endDate)) {
+  //           if (currentDate.weekday == targetWeekday) {
+  //             DateTime recurringStart = DateTime(
+  //               currentDate.year,
+  //               currentDate.month,
+  //               currentDate.day,
+  //               startTime.hour,
+  //               startTime.minute,
+  //             );
+  //             DateTime recurringEnd = DateTime(
+  //               currentDate.year,
+  //               currentDate.month,
+  //               currentDate.day,
+  //               endTime.hour,
+  //               endTime.minute,
+  //             );
 
-  //         print('Added recurring event on: $currentDate');
+  //             // Add the recurring event
+  //             _eventController.add(calendar_view.CalendarEventData(
+  //               title: classItem.title!,
+  //               startTime: recurringStart,
+  //               endTime: recurringEnd,
+  //               date: currentDate,
+  //             ));
+  //           }
+
+  //           // Move to the next day
+  //           currentDate = currentDate.add(Duration(days: 1));
+  //         }
   //       }
   //     }
   //   }
@@ -160,12 +143,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
         endTime.minute,
       );
 
-      // Add the initial event
+      // Add the initial event with classId
       _eventController.add(calendar_view.CalendarEventData(
         title: classItem.title!,
         startTime: eventStart,
         endTime: eventEnd,
         date: startDate,
+        event: classItem.id, // Add classId to the event
       ));
 
       // Handle recurrence based on the selected days
@@ -206,12 +190,13 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                 endTime.minute,
               );
 
-              // Add the recurring event
+              // Add the recurring event with classId
               _eventController.add(calendar_view.CalendarEventData(
                 title: classItem.title!,
                 startTime: recurringStart,
                 endTime: recurringEnd,
                 date: currentDate,
+                event: classItem.id, // Add classId to the event
               ));
             }
 
@@ -299,19 +284,51 @@ class _ScheduleScreenState extends State<ScheduleScreen> {
                       ),
                     );
                   },
+                  // eventTileBuilder: (date, events, boundary, start, end) {
+                  //   return Padding(
+                  //     padding: const EdgeInsets.only(right: 2, left: 2),
+                  //     child: Consumer<CreateClassProvider>(
+                  //       builder: (context, classProvider, child) {
+                  //         final classItem = classProvider.classes.firstOrNull;
+                  //         return Container(
+                  //             width: 64.w,
+                  //             decoration: BoxDecoration(
+                  //                 borderRadius: BorderRadius.circular(8.0),
+                  //                 color: Color(
+                  //                     classItem!.color ?? Colors.grey.value)),
+                  //             child: Center(child: Text(events.first.title)));
+                  //       },
+                  //     ),
+                  //   );
+                  // },
+
                   eventTileBuilder: (date, events, boundary, start, end) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 2, left: 2),
                       child: Consumer<CreateClassProvider>(
                         builder: (context, classProvider, child) {
+                          // Get the classId from the event
+                          final classId = events.first.event as int?;
+                          // Find the corresponding class
+                          final classItem = classProvider.classes.firstWhere(
+                            (c) => c.id == classId,
+                            orElse: () => CreateNewClass(
+                              id: -1,
+                              title: "Unknown",
+                              color: Colors.grey.value,
+                            ), // Fallback if class not found
+                          );
                           return Container(
-                              width: 64.w,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Color(classProvider
-                                          .classes.firstOrNull!.color ??
-                                      Colors.grey.value)),
-                              child: Center(child: Text(events.first.title)));
+                            width: 64.w,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8.0),
+                              color:
+                                  Color(classItem.color ?? Colors.grey.value),
+                            ),
+                            child: Center(
+                              child: Text(events.first.title),
+                            ),
+                          );
                         },
                       ),
                     );

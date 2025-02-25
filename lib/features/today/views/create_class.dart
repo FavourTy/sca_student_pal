@@ -354,6 +354,7 @@ class _CreateClassState extends State<CreateClass> {
             child: ListBody(
               children: weekdays.map((day) {
                 return CheckboxListTile(
+                  activeColor: AppColors.actionColor,
                   title: Text(
                     day,
                     style: Theme.of(context).textTheme.bodyMedium,

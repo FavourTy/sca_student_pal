@@ -18,7 +18,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColors.blueColor,
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
           Column(

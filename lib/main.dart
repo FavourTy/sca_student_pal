@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             onGenerateRoute: AppRouter.appRouter,
             initialRoute: firebaseService.auth.currentUser != null
                 ? AppRouteStrings.base
-                : AppRouteStrings.welcomeScreen,
+                : AppRouteStrings.splashScreen,
             navigatorKey: AppRouter.navKey,
           );
         },

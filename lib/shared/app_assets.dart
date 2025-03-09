@@ -4,6 +4,7 @@ class AppAssets {
 
   static const String onboardingBg = "${_basePng}onboard_bg.png";
   static const String welcome = "${_basePng}welcome.png";
+  static const String logo = "${_basePng}studentpal_logo.png";
   static const String details = "${_basePng}details.png";
   static const String addIcon = "${_base}add_icon.svg";
   static const String backIcon = "${_base}back_icon.svg";

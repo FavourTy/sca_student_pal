@@ -14,4 +14,5 @@ class AppRouteStrings {
   static const String onboardingScreen = '/onboarding_screen';
   static const String welcomeScreen = '/welcome_screen';
   static const String detailsScreen = '/details_screen';
+  static const String splashScreen = '/splash_screen';
 }

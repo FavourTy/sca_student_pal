@@ -11,6 +11,7 @@ import '../../features/authentication/views/register_screen.dart';
 import '../../features/onboarding/details_screen.dart';
 import '../../features/onboarding/onboarding_screen.dart';
 import '../../features/onboarding/welcome_screen.dart';
+import '../../features/splash/splash_screen.dart';
 import 'app_route_string.dart';
 
 class AppRouter {
@@ -38,6 +39,8 @@ class AppRouter {
         return CupertinoPageRoute(builder: (_) => const WelcomeScreen());
       case AppRouteStrings.detailsScreen:
         return CupertinoPageRoute(builder: (_) => const DetailsScreen());
+      case AppRouteStrings.splashScreen:
+        return CupertinoPageRoute(builder: (_) => const SplashScreen());
       // case AppRouteStrings.createAssignment:
       //   return CupertinoPageRoute(
       //       builder: (_) => const CreateAssignmentScreen());

@@ -1,5 +1,10 @@
 class AppAssets {
+  static const String _basePng = "assets/images/pngs/";
   static const String _base = "assets/images/svgs/";
+
+  static const String onboardingBg = "${_basePng}onboard_bg.png";
+  static const String welcome = "${_basePng}welcome.png";
+  static const String details = "${_basePng}details.png";
   static const String addIcon = "${_base}add_icon.svg";
   static const String backIcon = "${_base}back_icon.svg";
   static const String checklistIcon = "${_base}checklist_icon.svg";

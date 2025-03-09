@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:student_pal/features/authentication/view_model/authentication_provider.dart';
 import 'package:student_pal/features/assignments/view_model/assignment_provider.dart';
+import 'package:student_pal/features/authentication/view_model/authentication_provider.dart';
 import 'package:student_pal/features/settings/view_model/course_provider.dart';
 import 'package:student_pal/features/today/view_models/create_class_provider.dart';
 import 'package:student_pal/repository/create_new_class_repo.dart';
@@ -61,7 +61,7 @@ class _MyAppState extends State<MyApp> {
             onGenerateRoute: AppRouter.appRouter,
             initialRoute: firebaseService.auth.currentUser != null
                 ? AppRouteStrings.base
-                : AppRouteStrings.loginScreen,
+                : AppRouteStrings.welcomeScreen,
             navigatorKey: AppRouter.navKey,
           );
         },

@@ -9,6 +9,7 @@ import 'package:student_pal/shared/custom_widget/auth_text_input.dart';
 
 import '../../../shared/app_colors.dart';
 import '../../../shared/constants.dart';
+import '../../../shared/custom_widget/password_text_input.dart';
 import '../../../shared/navigation/app_route_string.dart';
 import '../../../shared/navigation/app_router.dart';
 
@@ -88,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    AuthTextInput(
+                    PasswordTextInput(
                       controller: passwordController,
                       label: "Password",
                       inputFormatter: [

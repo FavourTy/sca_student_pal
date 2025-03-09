@@ -39,11 +39,16 @@ class CourseTile extends StatelessWidget {
                   ),
                 ),
                 SizedBox(width: 8.w),
-                Text("$code - $courseTitle",
+                SizedBox(
+                  width: 200,
+                  child: Text(
+                    "$code - $courseTitle",
                     style: Theme.of(context)
                         .textTheme
                         .bodyMedium!
-                        .copyWith(fontWeight: FontWeight.w700)),
+                        .copyWith(fontWeight: FontWeight.w700),
+                  ),
+                ),
               ],
             ),
             SizedBox(
